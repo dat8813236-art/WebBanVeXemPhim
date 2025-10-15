@@ -1,0 +1,742 @@
+/* ===== RESET GIAO DIỆN CHUNG ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== PHẦN HEADER CHÍNH (THANH TRÊN CÙNG) ===== */
+header {
+  background-color: #fefdf5;
+  height: 50px;
+}
+
+/* ===== HỘP POPUP ĐĂNG NHẬP / ĐĂNG KÝ ===== */
+.login-box {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== KHUNG NỘI DUNG POPUP ===== */
+.login-content {
+  background: #fff;
+  width: 350px;
+  padding: 20px;
+  border-radius: 15px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===== NÚT ĐÓNG (X) POPUP ===== */
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* ===== THANH TAB (ĐĂNG NHẬP / ĐĂNG KÝ) ===== */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+/* ===== NÚT TAB ===== */
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  background: #eee;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ===== TAB ĐANG CHỌN ===== */
+.tab-btn.active {
+  background: #e63946;
+  color: #fff;
+}
+
+/* ===== KHU VỰC NỘI DUNG CỦA MỖI TAB ===== */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ===== Ô NHẬP DỮ LIỆU TRONG TAB ===== */
+.tab-content input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* ===== NÚT XÁC NHẬN ĐĂNG NHẬP/ĐĂNG KÝ ===== */
+.submit-btn {
+  width: 100%;
+  background: #e63946;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #b32434;
+}
+
+/* ===== HIỆU ỨNG POPUP XUẤT HIỆN ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== KHUNG CHÍNH CỦA TRANG ===== */
+.movie-app-header {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fefdf5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== VIỀN ĐỎ CHẤM BI (HEADER VÀ FOOTER) ===== */
+.header-border {
+  height: 20px;
+  background-color: #c90000;
+  background-image: radial-gradient(#fff 20%, transparent 21%);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  border-bottom: 2px solid #000;
+}
+
+/* ===== VIỀN CHẤM BI DƯỚI CÙNG ===== */
+.bottom-border {
+  border-top: 2px solid #000;
+  border-bottom: none;
+}
+
+/* ===== KHU VỰC LOGO VÀ THANH MENU ===== */
+.content-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+/* ===== ĐƯỜNG KẺ ĐEN NGANG TRONG HEADER ===== */
+.content-border {
+  height: 1px;
+  background-color: #000;
+  margin: 0 0;
+}
+
+/* ===== HIỆU ỨNG HOVER MENU CHÍNH ===== */
+.main-nav a:hover {
+  color: #c90000;
+  border-bottom: 2px solid #c90000;
+}
+.main-nav a {
+  transition: color 0.2s ease-in-out;
+}
+.main-nav a.active:hover {
+  color: #c90000;
+}
+
+/* ===== PHẦN LOGO ===== */
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  height: 100%;
+  margin-left: 0;
+}
+.logo-image {
+  height: 77px;
+  width: 120px;
+}
+
+/* ===== THANH ĐIỀU HƯỚNG CHÍNH ===== */
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.main-nav li {
+  margin-right: 30px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ===== MENU DROPDOWN (QUỐC GIA, THỂ LOẠI) ===== */
+.main-nav {
+  position: relative;
+}
+
+.main-nav li {
+  position: relative;
+  margin-right: 30px;
+}
+
+/* ===== LINK TRONG MENU ===== */
+.main-nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 5px;
+  display: block;
+  transition: 0.2s;
+}
+
+.main-nav a:hover {
+  color: #c90000;
+}
+
+/* ===== NÚT ĐĂNG NHẬP / ĐĂNG KÝ ===== */
+.login {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 10px;
+  transition: all 0.3s ease;
+  margin-left: 20px;
+}
+
+.login:hover {
+  background-color: #a00000;
+  box-shadow: 0 0 8px rgba(201, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+/* ===== KHUNG DROPDOWN MENU CON ===== */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #111;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 99;
+}
+
+.dropdown-content li {
+  margin: 0;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 10px 15px;
+  text-transform: none;
+  font-weight: normal;
+}
+
+.dropdown-content a:hover {
+  background-color: #ffeaea;
+  color: #c90000;
+}
+
+/* ===== HIỆU ỨNG DROPDOWN XUẤT HIỆN ===== */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+/* ===== ĐỊNH DẠNG TIÊU ĐỀ CHÍNH (MOVIE SELECTION) ===== */
+.selection-header {
+  text-align: center; /* Căn giữa toàn bộ tiêu đề */
+  padding: 20px 0;
+  margin: 0 50px; /* Tạo khoảng trống ở hai bên */
+  position: relative; /* Quan trọng để định vị gạch ngang */
+}
+
+#movie-title {
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+  background-color: #fefdf5;
+  padding: 0 20px;
+  font-size: 30px;
+  font-weight: 900;
+  color: #111;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ===== TẠO ĐƯỜNG GẠCH NGANG BẰNG PSEUDO-ELEMENT (BEFORE/AFTER) ===== */
+.selection-header::before {
+  content: "";
+  position: absolute;
+  top: 50%; /* Đặt gạch ngang ở giữa chiều cao */
+  left: 0;
+  right: 0;
+  border-top: 2px solid #333; /* Đường gạch ngang */
+  z-index: 5;
+}
+/* ===== MARQUEE (QUẢNG CÁO CHẠY VÔ HẠN) ===== */
+.marquee-wrapper {
+  height: 120px; /* Tăng chiều cao của container lên 120px */
+  overflow: hidden; /* Cắt phần nội dung tràn ra ngoài */
+  white-space: nowrap; /* Ngăn nội dung bị xuống dòng */
+  margin: 20px 0; /* Khoảng cách trên dưới */
+  background-color: #000; /* Màu nền nếu cần (tùy chọn) */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee-animation 30s linear infinite;
+  font-size: 0; /* ĐÃ THÊM: Loại bỏ khoảng trắng giữa các thẻ inline-block */
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content img {
+  height: 120px;
+  width: auto;
+  /* margin-right: 20px; <--- HÃY BỎ DÒNG NÀY HOẶC ĐẶT LẠI VỀ 0 */
+  margin-right: 0; /* ĐÃ SỬA: Loại bỏ khoảng cách giữa các ảnh */
+  display: inline-block;
+  object-fit: contain;
+  vertical-align: middle;
+  font-size: initial; /* Tùy chọn: Đảm bảo chữ bên trong (nếu có) vẫn hiển thị bình thường */
+}
+
+/* Định nghĩa hiệu ứng cuộn */
+@keyframes marquee-animation {
+  0% {
+    transform: translateX(0); /* Bắt đầu ở vị trí 0 */
+  }
+  100% {
+    /* Chuyển động sang trái bằng 50% tổng chiều rộng (Vì ta đã lặp lại nội dung 2 lần) */
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== HEADER CHUNG ===== */
+header {
+  display: flex;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* ===== PHẦN CHÂN TRANG (FOOTER) ===== */
+.footer {
+  background-color: #fefdf5;
+  border-top: 2px solid #000;
+  padding: 30px 50px;
+  font-size: 14px;
+  color: #333;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-section h3 {
+  color: #c90000;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 5px;
+}
+
+.footer-section li:hover {
+  color: #c90000;
+  cursor: pointer;
+}
+
+.social-icons img {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.footer-bottom {
+  border-top: 1px solid #000;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* ===== LƯỚI DANH SÁCH PHIM (4 CỘT) ===== */
+.movies {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: start;
+  gap: 25px;
+  padding: 20px 50px;
+}
+
+/* ===== THẺ PHIM CHUNG ===== */
+.movie-card {
+  position: relative;
+  width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== ẢNH PHIM ===== */
+.movie-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+/* Sửa lỗi: Đảm bảo tiêu đề phim có chiều cao cố định */
+.movie-card h3 {
+  height: 2.8em; /* Đủ cho khoảng 2 dòng văn bản */
+  margin: 10px 0 5px; /* Điều chỉnh khoảng cách */
+  font-size: 16px;
+  line-height: 1.4;
+  overflow: hidden; /* Ẩn đi phần tiêu đề thừa nếu nó quá dài */
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+}
+/* ===== KHU VỰC CHI TIẾT PHIM ===== */
+#movie-detail {
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ===== NÚT CHI TIẾT PHIM ===== */
+.detail-btn {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.detail-btn:hover {
+  background-color: #a30000;
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* ===== BỐ CỤC NỘI DUNG CHI TIẾT PHIM ===== */
+.detail-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+#detail-poster {
+  width: 320px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.detail-text {
+  flex: 1;
+}
+
+#detail-title {
+  font-size: 26px;
+  color: #c90000;
+  margin-bottom: 10px;
+}
+
+#detail-info {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ===== NÚT TRONG TRANG CHI TIẾT ===== */
+#movie-detail button {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#movie-detail button:hover {
+  background-color: #a00000;
+}
+
+/* ===== TRANG CHI TIẾT PHIM KIỂU CGV ===== */
+#movie-detail {
+  padding: 40px 80px;
+  background-color: #fefdf5;
+  font-family: Arial, sans-serif;
+}
+
+.detail-header {
+  font-size: 26px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.detail-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+/* ===== ẢNH TRONG PHẦN CHI TIẾT ===== */
+.detail-left img {
+  width: 320px;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== THÔNG TIN PHIM BÊN PHẢI ===== */
+.detail-right {
+  flex: 1;
+}
+
+.detail-right h2 {
+  font-size: 24px;
+  color: #c90000;
+  margin-bottom: 15px;
+}
+
+.detail-info {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+/* ===== CÁC NÚT CHỨC NĂNG CHI TIẾT ===== */
+.detail-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== NÚT MUA VÉ ===== */
+.buy-btn {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buy-btn:hover {
+  background-color: #a00000;
+}
+
+/* ===== NÚT XEM TRAILER ===== */
+.trailer-btn:hover {
+  background-color: #222;
+}
+
+/* ===== MÔ TẢ NỘI DUNG PHIM ===== */
+.detail-summary {
+  margin-top: 40px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  color: #333;
+  line-height: 1.7;
+}
+
+/* ===== NÚT QUAY LẠI (TRANG CHI TIẾT) ===== */
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #444;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.back-btn:hover {
+  color: #c90000;
+}
+
+/* ===== NÚT QUAY LẠI CHI TIẾT (ĐỎ) ===== */
+.back-detail-btn {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.back-detail-btn:hover {
+  background-color: #a00000;
+}
+
+/* ===== NÚT THANH TOÁN ===== */
+.pay-btn {
+  background-color: #c90000;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.pay-btn:hover {
+  background-color: #a00000;
+}
+
+/* ===== CLASS ẨN PHẦN TỬ ===== */
+.hidden {
+  display: none;
+}
+
+/* ===== KHU VỰC GHẾ NGỒI ===== */
+#seats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 20px 0;
+  max-width: 400px;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.seat.selected {
+  background: #f00;
+  color: #fff;
+}
+
+.seat:hover {
+  background: #aaa;
+}
+
+/* ===== MÃ QR THANH TOÁN ===== */
+#qr-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#qr-container img {
+  width: 200px;
+  height: 200px;
+}
+
+/* ===== ẢNH PHIM VÀ NÚT CHI TIẾT ===== */
+.movie-image {
+  position: relative;
+  display: inline-block;
+}
+
+/* ===== NÚT CHI TIẾT KHI DI CHUỘT VÀO ẢNH ===== */
+.detail-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ===== HIỆU ỨNG HOVER HIỆN NÚT CHI TIẾT ===== */
+.movie-image:hover .detail-btn {
+  display: block;
+}
+/*=== */
