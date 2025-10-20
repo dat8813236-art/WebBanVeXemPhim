@@ -28,7 +28,7 @@ header {
 /* ===== KHUNG NỘI DUNG POPUP ===== */
 .login-content {
   background: #fff;
-  width: 350px;
+  width: 400px;
   padding: 20px;
   border-radius: 15px;
   position: relative;
@@ -39,7 +39,7 @@ header {
 .close-btn {
   position: absolute;
   right: 15px;
-  top: 10px;
+  top: 0px;
   font-size: 25px;
   cursor: pointer;
 }
@@ -79,7 +79,7 @@ header {
 /* ===== Ô NHẬP DỮ LIỆU TRONG TAB ===== */
 .tab-content input {
   display: block;
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin: 8px 0;
   border-radius: 8px;
