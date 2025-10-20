@@ -635,7 +635,12 @@ header {
 .back-btn:hover {
   color: #c90000;
 }
-
+/* ===== KHU VỰC CHỌN GHẾ VÀ THANH TOÁN ===== */
+#seat-selection {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 /* ===== NÚT QUAY LẠI CHI TIẾT (ĐỎ) ===== */
 .back-detail-btn {
   background-color: #c90000;
