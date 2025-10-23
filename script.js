@@ -379,3 +379,28 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+function goHome() {
+  // Ẩn các phần khác
+  document.getElementById("movie-detail").classList.add("hidden");
+  document.getElementById("booking").classList.add("hidden");
+
+  // Hiện lại danh sách phim
+  document.getElementById("movie-list").classList.remove("hidden");
+
+  // Hiện lại tiêu đề "Movie Selection"
+  const titleWrapper = document.getElementById("movie-selection-wrapper");
+  if (titleWrapper) titleWrapper.style.display = "block";
+
+  // Ẩn phần QR nếu đang hiện
+  const qr = document.getElementById("qr-container");
+  if (qr) qr.classList.add("hidden");
+
+  // Hiện lại nút thanh toán nếu đã bị ẩn
+  const payBtn = document.querySelector(
+    "#booking button[onclick='proceedToPayment()']"
+  );
+  if (payBtn) payBtn.style.display = "inline-block";
+
+  // Hiện tất cả phim
+  showAllMovies();
+}
