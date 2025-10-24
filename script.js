@@ -286,6 +286,15 @@ function goBackToDetail() {
   document.getElementById("booking").classList.add("hidden");
   document.getElementById("movie-detail").classList.remove("hidden");
 }
+// Dữ liệu giả định ghế đã đặt theo từng suất chiếu
+const bookedSeatsByTime = {
+  "8:00": ["A1", "A2", "B4", "C5", "E7"],
+  "10:00": ["A3", "B1", "B2", "C3", "C4", "D8"],
+  "14:00": ["A5", "A6", "B7", "C2"],
+  "17:00": ["B3", "B4", "C1", "D2", "E8"],
+  "20:00": ["A4", "B5", "C6", "D7", "E5"]
+};
+
 
 // Sinh sơ đồ ghế A1–E8
 function generateSeats() {
@@ -293,31 +302,72 @@ function generateSeats() {
   seatsContainer.innerHTML = "";
   selectedSeats = [];
 
+  const showtime = document.getElementById("showtime").value;
+  const bookedSeats = bookedSeatsByTime[showtime] || [];
+
+  // Sinh 5 hàng (A–E) × 8 cột
   for (let row = 0; row < 5; row++) {
     for (let col = 0; col < 8; col++) {
+      const seatId = String.fromCharCode(65 + row) + (col + 1);
       const seat = document.createElement("div");
       seat.classList.add("seat");
-      seat.innerText = String.fromCharCode(65 + row) + (col + 1);
-      seat.onclick = () => toggleSeat(seat, seat.innerText);
+      seat.innerText = seatId;
+
+      // Ghế VIP (giữa hàng)
+      if (row === 2 && col >= 2 && col <= 5) seat.classList.add("vip");
+
+      // Ghế đã đặt
+      if (bookedSeats.includes(seatId)) {
+        seat.classList.add("occupied");
+      }
+
+      // Click chọn ghế
+      seat.onclick = () => toggleSeat(seat, seatId);
       seatsContainer.appendChild(seat);
     }
-    const br = document.createElement("div");
-    br.style.flexBasis = "100%";
-    seatsContainer.appendChild(br);
+  }
+}
+function showMovieListAndFilter(filterType, value) {
+  // Ẩn các phần khác
+  document.getElementById("movie-detail").classList.add("hidden");
+  document.getElementById("booking").classList.add("hidden");
+
+  // Hiện lại danh sách phim
+  document.getElementById("movie-list").classList.remove("hidden");
+
+  // Hiện lại tiêu đề
+  const titleWrapper = document.getElementById("movie-selection-wrapper");
+  if (titleWrapper) titleWrapper.style.display = "block";
+
+  // Gọi bộ lọc tương ứng
+  if (filterType === "genre") {
+    filterByGenre(value);
+  } else if (filterType === "country") {
+    filterByCountry(value);
   }
 }
 
+
+
+
 // Toggle chọn ghế
-function toggleSeat(seat, seatName) {
-  if (selectedSeats.includes(seatName)) {
-    selectedSeats = selectedSeats.filter((s) => s !== seatName);
-    seat.classList.remove("selected");
+function toggleSeat(seat, seatId) {
+  if (seat.classList.contains("occupied")) return;
+
+  seat.classList.toggle("selected");
+
+  if (seat.classList.contains("selected")) {
+    selectedSeats.push(seatId);
   } else {
-    selectedSeats.push(seatName);
-    seat.classList.add("selected");
+    selectedSeats = selectedSeats.filter((s) => s !== seatId);
   }
-  updateTotal();
 }
+
+// Gọi lần đầu khi mở phần booking
+document.addEventListener("DOMContentLoaded", () => {
+  const bookingSection = document.getElementById("booking");
+  if (bookingSection) generateSeats();
+});
 
 // Cập nhật tổng tiền
 function updateTotal() {
@@ -379,3 +429,28 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+function goHome() {
+  // Ẩn các phần khác
+  document.getElementById("movie-detail").classList.add("hidden");
+  document.getElementById("booking").classList.add("hidden");
+
+  // Hiện lại danh sách phim
+  document.getElementById("movie-list").classList.remove("hidden");
+
+  // Hiện lại tiêu đề "Movie Selection"
+  const titleWrapper = document.getElementById("movie-selection-wrapper");
+  if (titleWrapper) titleWrapper.style.display = "block";
+
+  // Ẩn phần QR nếu đang hiện
+  const qr = document.getElementById("qr-container");
+  if (qr) qr.classList.add("hidden");
+
+  // Hiện lại nút thanh toán nếu đã bị ẩn
+  const payBtn = document.querySelector(
+    "#booking button[onclick='proceedToPayment()']"
+  );
+  if (payBtn) payBtn.style.display = "inline-block";
+
+  // Hiện tất cả phim
+  showAllMovies();
+}

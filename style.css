@@ -97,6 +97,7 @@ header {
   cursor: pointer;
 }
 
+
 .submit-btn:hover {
   background: #b32434;
 }
@@ -244,6 +245,90 @@ header {
   box-shadow: 0 0 8px rgba(201, 0, 0, 0.5);
   transform: scale(1.05);
 }
+
+/* ===== GHẾ ===== */
+
+
+
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  justify-items: center;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.seat {
+  width: 35px;
+  height: 35px;
+  background-color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat:hover {
+  transform: scale(1.1);
+  background-color: #ccc;
+}
+
+.seat.selected {
+  background-color: #e63946;
+  color: white;
+}
+
+.seat.vip {
+  background-color: gold;
+}
+
+.seat.occupied {
+  background-color: #555;
+  cursor: not-allowed;
+  color: white;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.legend .seat {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ===== CHÚ GIẢI ===== */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.legend .seat {
+  width: 20px;
+  height: 20px;
+}
+
+
+.next-btn:hover {
+  background-color: #000;
+}
+
 
 /* ===== KHUNG DROPDOWN MENU CON ===== */
 .dropdown-content {

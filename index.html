@@ -5,7 +5,7 @@
     <title>Web Đặt Vé Xem Phim Của Nhóm 2 </title>
     <link rel="stylesheet" href="style.css" />
   </head>
-<!-- Popup Đăng ký / Đăng nhập -->
+<!-- Đặng Việt Hoàn  -->
 <div id="loginBox" class="login-box">
   <div class="login-content">
     <span class="close-btn" onclick="closeLogin()">&times;</span>
@@ -33,7 +33,7 @@
   </div>
 </div>
 
-
+<!-- Lê Tiến Đạt -->
   <body>
     <div class="movie-app-header">
       <div class="header-border top-border"></div>
@@ -47,7 +47,7 @@
         </div>
         <nav class="main-nav">
           <ul>
-               <li><a href="#" onclick="showAllMovies()">TRANG CHỦ</a></li>
+               <li><a href="#" onclick="goHome()">TRANG CHỦ</a></li>
             <li class="dropdown">
               <a href="#">THỂ LOẠI ▾</a>
               <ul class="dropdown-content">
@@ -91,8 +91,8 @@
               </ul>
             </li>
 
-            <li><a href="#"onclick="filterByGenre('phimchieurap')">PHIM CHIẾU RẠP</a></li>
-            <li><a href="#"onclick="filterByGenre('phimle')">PHIM LẺ</a></li>
+            <li><a href="#"onclick="filterByGenre('phimchieurap')">PHIM ĐANG CHIẾU </a></li>
+            <li><a href="#"onclick="filterByGenre('phímapchieu')">PHIM SẮP CHIẾU </a></li>
             
             
 
@@ -497,7 +497,7 @@
 </div>
   </main>
 
-  <!-- Trang chi tiết phim -->
+  <!-- Lê Tiến Đạt - Trang chi tiết phim -->
   <section id="movie-detail" class="hidden">
     <button class="back-btn" onclick="goBack()">⬅ Quay lại</button>
 
@@ -526,29 +526,47 @@
     </div>  
   </section>
 
-  <!-- Trang đặt vé -->
+  <!-- Nguyễn Đức Cảnh - Trang đặt vé -->
   <section id="booking" class="hidden">
-    <button class="back-detail-btn" onclick="goBackToDetail()">⬅ Quay lại chi tiết</button>
-    <h2>Chọn suất chiếu & ghế</h2>
-    <label>
-      Suất chiếu:
-      <select id="showtime">
-        <option>8:00</option>
-        <option>10:00</option>
-        <option>12:00</option>
-        <option>14:00</option>
-        <option>16:00</option>
-        <option>18:00</option>
-        <option>20:00</option>
-      </select>
-    </label>
+  <button class="back-detail-btn" onclick="goBackToDetail()">⬅ Quay lại chi tiết</button>
+  <h2>Chọn suất chiếu & chỗ ngồi</h2>
+
+  <label>
+    Suất chiếu:
+    <select id="showtime" onchange="generateSeats()">
+      <option value="8:00">8:00</option>
+      <option value="10:00">10:00</option>
+      <option value="14:00">14:00</option>
+      <option value="17:00">17:00</option>
+      <option value="20:00">20:00</option>
+    </select>
+  </label>
+
+  <div class="screen">MÀN HÌNH</div>
+  <div id="seats" class="seat-grid"></div>
+
+  <div class="legend">
+    <div><span class="seat normal"></span> Ghế thường</div>
+    <div><span class="seat vip"></span> Ghế VIP</div>
+    <div><span class="seat selected"></span> Đang chọn</div>
+    <div><span class="seat occupied"></span> Đã đặt</div>
+  </div>
+
+  <button class="pay-btn" onclick="alert('Đặt vé thành công!')">Thanh toán</button>
+</section>
+
+<div class="detail-buttons">
+  <button class="buy-btn" onclick="goToBooking()">🎟 Mua Vé</button>
+ 
+</div>
+
 
     <div id="seats"></div>
     <p>Ghế đã chọn: <span id="selected-seats"></span></p>
     <p>Tổng tiền: <span id="total-price">0</span> VND</p>
     <button class="pay-btn" onclick="proceedToPayment()">Thanh toán</button>
 
-    <!-- QR code sẽ hiện ở đây -->
+    <!-- Nguyễn Văn An - QR Thanh toán  -->
     <div id="qr-container" class="hidden">
       <h3>Quét mã QR để thanh toán</h3>
       <img src="img/qr.png" alt="QR Thanh toán" />
@@ -573,13 +591,16 @@
       </div>
 
       <div class="footer-section">
+
         <h3>Nhiệm vụ của từng thành viên</h3>
+        <h3>Phân công việc làm </h3>
+
         <ul>
-          <li>Điều Khoản Chung</li>
-          <li>Điều Khoản Giao Dịch</li>
-          <li>Chính Sách Thanh Toán</li>
-          <li>Chính Sách Bảo Mật</li>
-          <li>Câu Hỏi Thường Gặp</li>
+          <li>Lê Tiến Đạt : Thiết kế gieo diện chính và quản lý dự án </li>
+          <li>Nguyễn Đức Cảnh : Thiết kế trang chọn và đặt vé </li>
+          <li>Nguyễn Văn Phúc : Viết báo cáo và thuyết trình   </li>
+          <li>Nguyễn Văn An : Thiết kế trang thanh toán và in hóa đơn</li>
+          <li>Đặng Việt Hoàn : thiết kế trang đăng ký , đăng nhập </li>
         </ul>
       </div>
 
