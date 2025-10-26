@@ -345,16 +345,16 @@ function generateSeats() {
   const showtime = document.getElementById("showtime").value;
   const bookedSeats = bookedSeatsByTime[showtime] || [];
 
-  // Sinh 5 hàng (A–E) × 8 cột
+  // Sinh 5 hàng (A–E) × 9 cột
   for (let row = 0; row < 5; row++) {
-    for (let col = 0; col < 8; col++) {
+    for (let col = 0; col < 9; col++) {
       const seatId = String.fromCharCode(65 + row) + (col + 1);
       const seat = document.createElement("div");
       seat.classList.add("seat");
       seat.innerText = seatId;
 
       // Ghế VIP (giữa hàng)
-      if (row === 2 && col >= 2 && col <= 5) seat.classList.add("vip");
+      if (row === 2 && col >= 2 && col <= 6) seat.classList.add("vip");
 
       // Ghế đã đặt
       if (bookedSeats.includes(seatId)) {
