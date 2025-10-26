@@ -343,15 +343,8 @@ function proceedToPayment() {
 
   // Hiện QR code
   document.getElementById("qr-container").classList.remove("hidden");
-
-  // Log ra console (sau này có thể gửi server)
-  console.log("Phim:", currentMovie.title);
-  console.log("Ghế:", selectedSeats.join(", "));
-  console.log(
-    "Tổng tiền:",
-    document.getElementById("total-price").innerText + " VND"
-  );
 }
+
 // ===== POPUP ĐĂNG NHẬP / ĐĂNG KÝ =====
 function showLogin() {
   document.getElementById("loginBox").style.display = "flex";
