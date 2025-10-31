@@ -436,33 +436,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-// Hàm đóng trailer (giữ riêng)
-function closeTrailer() {
-  const overlay = document.querySelector(".trailer-overlay");
-  if (overlay) overlay.remove();
-}
-
 // === THÊM TÍNH NĂNG XEM TRAILER KHI NHẤN ẢNH ===
 document.addEventListener("DOMContentLoaded", () => {
   // Bắt tất cả ảnh phim trong danh sách
   const movieImages = document.querySelectorAll(".movie-card img");
+  
   movieImages.forEach((img) => {
     img.addEventListener("click", () => {
-      // Lấy mã phim từ thuộc tính data-code (hoặc alt nếu bạn dùng alt là tên phim)
+      // ... (Phần kiểm tra thông tin phim giữ nguyên)
       const code = img.getAttribute("data-code") || img.alt || "";
-      if (!code || !movies[code]) {
+      if (!code || !movies[code] || !movies[code].trailer) {
         alert("Phim này chưa có trailer!");
         return;
       }
-
       const movie = movies[code];
-      if (!movie.trailer) {
-        alert("Phim này chưa có trailer!");
-        return;
-      }
 
-      // Tạo popup trailer
+      // 1. Tạo popup trailer
       const overlay = document.createElement("div");
       overlay.className = "trailer-overlay";
       overlay.innerHTML = `
@@ -478,6 +467,22 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
       document.body.appendChild(overlay);
+
+      // 2. Gắn sự kiện ĐÓNG khi click vào nền đen (overlay)
+      overlay.addEventListener("click", (evt) => {
+        // Chỉ đóng khi phần tử được click (evt.target) chính là lớp phủ (overlay)
+        if (evt.target === overlay) {
+          closeTrailer();
+        }
+      });
+      
+      // 3. NGĂN SỰ KIỆN LAN TRUYỀN (propagation) khi click vào khung chứa video (trailer-box)
+      const trailerBox = overlay.querySelector(".trailer-box");
+      if (trailerBox) {
+          trailerBox.addEventListener('click', (e) => {
+              e.stopPropagation();
+          });
+      }
     });
   });
 });
@@ -485,7 +490,14 @@ document.addEventListener("DOMContentLoaded", () => {
 // === ĐÓNG TRAILER ===
 function closeTrailer() {
   const overlay = document.querySelector(".trailer-overlay");
-  if (overlay) overlay.remove();
+  if (overlay) {
+      // Quan trọng: Dừng video bằng cách set src về rỗng
+      const iframe = overlay.querySelector('iframe');
+      if (iframe) {
+          iframe.src = "";
+      }
+      overlay.remove();
+  }
 }
 
 // Quay lại danh sách phim
