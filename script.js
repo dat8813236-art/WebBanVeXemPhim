@@ -385,6 +385,64 @@ function showDetails(movieKey) {
   document.getElementById("detail-summary-text").innerHTML =
     currentMovie.summary || "";
 }
+// === THÊM TÍNH NĂNG XEM TRAILER KHI NHẤN NÚT PLAY ===
+document.addEventListener("DOMContentLoaded", () => {
+  // Thêm biểu tượng "Play" vào giữa mỗi ảnh phim
+  const movieImages = document.querySelectorAll(".movie-card .movie-image");
+
+  movieImages.forEach((container) => {
+    const img = container.querySelector("img");
+    if (!img) return;
+
+    // Tạo nút play nếu chưa có
+    if (!container.querySelector(".play-btn")) {
+      const playBtn = document.createElement("div");
+      playBtn.className = "play-btn";
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+      container.appendChild(playBtn);
+
+      // Gắn sự kiện mở trailer
+      playBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const code = img.getAttribute("data-code");
+        if (!code || !movies[code] || !movies[code].trailer) {
+          alert("Phim này chưa có trailer!");
+          return;
+        }
+
+        const movie = movies[code];
+
+        const overlay = document.createElement("div");
+        overlay.className = "trailer-overlay";
+        overlay.innerHTML = `
+          <div class="trailer-box">
+            <span class="close-trailer" onclick="closeTrailer()">&times;</span>
+            <iframe
+              src="${movie.trailer}?autoplay=1"
+              title="Trailer ${movie.title}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+
+        // Đóng khi click nền đen
+        overlay.addEventListener("click", (evt) => {
+          if (evt.target === overlay) closeTrailer();
+        });
+      });
+    }
+  });
+});
+
+// Hàm đóng trailer (giữ riêng)
+function closeTrailer() {
+  const overlay = document.querySelector(".trailer-overlay");
+  if (overlay) overlay.remove();
+}
+
 // === THÊM TÍNH NĂNG XEM TRAILER KHI NHẤN ẢNH ===
 document.addEventListener("DOMContentLoaded", () => {
   // Bắt tất cả ảnh phim trong danh sách
