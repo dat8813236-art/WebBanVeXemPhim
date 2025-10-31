@@ -744,4 +744,203 @@ header {
 .movie-image:hover .detail-btn {
   display: block;
 }
-/*=== */
+/*===AN====*/
+/* --- BẮT ĐẦU CSS SẠCH CHO VÉ (KHỚP 100% VỚI ẢNH) --- */
+section#ticket-receipt-container {
+    width: 360px; /* Rộng */
+    margin: 20px auto;
+    background-color: #fefefe;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* 1. Khung vé (Viền đỏ, DÙNG FLEXBOX) */
+.ticket {
+    border: 2px dashed #e74c3c; /* Viền đỏ */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex; /* Sắp xếp các mục con */
+    flex-direction: column; /* Xếp dọc */
+    min-height: 580px; /* Đủ chiều cao */
+    justify-content: space-between; /* Giãn cách các mục */
+}
+
+/* 2. Header (CGV, Tên phim) */
+.ticket-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.ticket-header h2#ticket-cinema {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #c90000; /* CGV Cinema màu đỏ */
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+.ticket-header h1#ticket-movie-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #000; /* Tên phim màu đen */
+    line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 3. Đường kẻ đỏ */
+.ticket-separator-red {
+    border-top: 2px solid #c90000;
+    margin: 20px 0;
+}
+
+/* 4. Thông tin NGÀY (Nằm riêng) */
+.ticket-date-info {
+    margin-bottom: 20px; /* Cách 3 cột ở dưới */
+    text-align: left;
+}
+.ticket-date-info strong {
+    display: block;
+    font-size: 0.9em;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+.ticket-date-info span {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #000;
+}
+
+/* 5. Lưới 3 cột (Ghế | Giờ | Giá) */
+.ticket-details-grid-3-col {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+.ticket-details-grid-3-col > div {
+    flex: 1;
+    padding: 0 5px;
+}
+.ticket-details-grid-3-col strong {
+    font-size: 0.9em;
+    color: #777;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 3px;
+}
+.ticket-details-grid-3-col span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000;
+}
+/* Kiểu riêng cho cột GHẾ (CÓ THU NHỎ TỰ ĐỘNG) */
+.detail-item-seat strong {
+    color: #000; /* Chữ "GHẾ" màu đen */
+}
+.detail-item-seat span#ticket-seats {
+    font-size: 3em; /* Kích thước to mặc định */
+    font-weight: 900;
+    color: #c90000;
+    line-height: 1;
+    display: block;
+    white-space: nowrap; /* Giữ trên 1 hàng khi ít ghế */
+    overflow: hidden; /* Ẩn nếu quá dài */
+    text-overflow: ellipsis; /* Thêm dấu "..." nếu bị ẩn */
+    transition: font-size 0.3s ease; /* Hiệu ứng thu nhỏ mượt */
+}
+.detail-item-seat span#ticket-seats.small-seats { /* Cho 3-5 ghế */
+    font-size: 1.8em;
+    white-space: normal; /* Cho phép xuống hàng */
+    line-height: 1.2;
+  
+}
+.detail-item-seat span#ticket-seats.extra-small-seats { /* Cho > 5 ghế */
+    font-size: 1.2em;
+    white-space: normal;
+    line-height: 1.3;
+  
+}
+
+
+/* 6. Đường kẻ đứt */
+.ticket-separator-dashed {
+    border-top: 1px dashed #ccc;
+    margin: 20px 0;
+}
+
+/* 7. Khu vực QR và Mã vé (Gói trong #ticket-qrcode-section) */
+#ticket-qrcode-section {
+    text-align: center;
+    /* Dùng flex để nó nằm ở giữa theo chiều dọc nếu nội dung ít */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0; /* Khoảng đệm trên dưới */
+}
+#ticket-qrcode-wrapper {
+    margin-bottom: 10px;
+     /* Khoảng cách giữa QR và mã vé */
+}
+#ticket-qrcode-wrapper img#payment-qr-image {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto 10px auto;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+#qr-instruction {
+   text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
+#ticket-code-wrapper { /* ID MỚI cho Mã vé */
+    text-align: center;
+    font-size: 1em;
+    color: #333;
+    margin-top: 10px; /* Cách QR một khoảng */
+}
+#ticket-code-wrapper strong {
+    font-weight: normal;
+}
+#ticket-code-wrapper span#ticket-code {
+    display: inline-block;
+    color: #333; /* Chữ đen */
+    font-weight: bold;
+    padding: 6px 0;
+    letter-spacing: 1px;
+    font-size: 1.1em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* 8. Footer vé */
+.ticket-footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #999;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+    margin-top: auto; /* Đẩy footer xuống cuối cùng */
+}
+
+/* --- KẾT THÚC CSS VÉ --- */
+
+/* --- CSS CHO BẢN IN --- */
+@media print {
+    body * { visibility: hidden; }
+    #ticket-receipt-container, #ticket-receipt-container * { visibility: visible; }
+    #ticket-receipt-container { 
+        position: absolute; left: 0; top: 0; margin: 0; padding: 0; 
+        width: 100%; box-shadow: none; border: none; 
+    }
+    .ticket { border: 2px dashed #000; box-shadow: none; }
+    button, .back-detail-btn, .login, .submit-btn, .back-btn, .detail-btn, .pay-btn, #confirm-payment-btn { 
+        display: none !important; 
+    }
+}
