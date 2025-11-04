@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Web Đặt Vé Xem Phim Của Nhóm 2 </title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   </head>
 <!-- Đặng Việt Hoàn  -->
 <div id="loginBox" class="login-box">
@@ -548,16 +548,62 @@
     <p>Ghế đã chọn: <span id="selected-seats"></span></p>
     <p>Tổng tiền: <span id="total-price">0</span> VND</p>
     <button class="pay-btn" onclick="proceedToPayment()">Thanh toán</button>
-
-    <!-- Nguyễn Văn An - QR Thanh toán  -->
-    <div id="qr-container" class="hidden">
-      <h3>Quét mã QR để thanh toán</h3>
-      <img src="img/qr.png" alt="QR Thanh toán" />
+<div id="qr-container" class="hidden">
+     <!--- <h3>Quét mã QR để thanh toán</h3>
+      <img src="img/qr.png" alt="QR Thanh toán" style="width: 200px; height: 200px;"/> 
+      <button id="confirm-payment-btn" style="display: none; margin-top: 15px;">
+        đã thanh toán
+      </button>
     </div>
+    <div id="payment-success-msg" class="hidden" style="color: green; font-weight: bold; margin-top: 20px; text-align: center;">
+    Đã thanh toán thành công!
+</div>
+    <!-- Nguyễn Văn An - QR Thanh toán  -->
+</section>
+<section id="ticket-receipt-container" class="hidden">
+    <div class="ticket"> <div class="ticket-header">
+            <h2 id="ticket-cinema">CGV CINEMA</h2>
+            <h1 id="ticket-movie-title">AVATAR: DÒNG CHẢY CỦA NƯỚC</h1>
+        </div>
 
-    
-  </section>
+        <div class="ticket-separator-red"></div>
 
+        <div class="ticket-date-info">
+            <strong>Ngày</strong>
+            <span id="ticket-date"></span>
+        </div>
+
+        <div class="ticket-details-grid-3-col">
+            <div class="detail-item-seat">
+                <strong>Ghế</strong>
+                <span id="ticket-seats"></span>
+            </div>
+            <div class="detail-item">
+                <strong>Giờ</strong>
+                <span id="ticket-showtime"></span>
+            </div>
+            <div class="detail-item">
+                <strong>Giá tiền</strong>
+                <span id="ticket-price"></span> VND
+            </div>
+        </div>
+
+        <div class="ticket-separator-dashed"></div>
+
+        <div id="ticket-qrcode-wrapper">
+            <img id="payment-qr-image" src="img/qr.png" alt="QR Thanh toán" />
+            <p id="qr-instruction">Quét mã QR để thanh toán</p>
+            <p id="ticket-code-wrapper">
+                <strong>Mã vé:</strong>
+                <span id="ticket-code"></span>
+            </p>
+        </div>
+
+        <div class="ticket-footer">
+            <p>Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi!</p>
+        </div>
+
+    </div> </section>
   <script src="script.js"></script>
   <!-- Footer -->
   <footer class="footer">
