@@ -896,7 +896,174 @@ header {
 .close-trailer:hover {
   transform: scale(1.2);
   color: #ff4c4c;
+} 
+/* --- BẮT ĐẦU CSS CHO VÉ (ĐÃ SỬA LỖI KHOẢNG TRẮNG) --- */
+
+section#ticket-receipt-container {
+    width: 360px;
+    margin: 20px auto;
+    background-color: #fefefe;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
+.ticket {
+    border: 2px dashed #e74c3c;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 580px; 
+    justify-content: space-between; 
+}
 
-/*=== */
+.ticket-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.ticket-header h2#ticket-cinema {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #c90000; 
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+.ticket-header h1#ticket-movie-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.ticket-separator-red {
+    border-top: 2px solid #c90000;
+    margin: 20px 0;
+}
+
+.ticket-date-info {
+    margin-bottom: 20px; 
+    text-align: left;
+}
+.ticket-date-info strong {
+    display: block;
+    font-size: 0.9em;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+}
+.ticket-date-info span {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #000;
+}
+
+.ticket-details-grid-3-col {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+.ticket-details-grid-3-col > div {
+    flex: 1;
+    padding: 0 5px;
+}
+.ticket-details-grid-3-col strong {
+    font-size: 0.9em;
+    color: #777;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 3px;
+}
+.ticket-details-grid-3-col span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000;
+}
+
+.detail-item-seat strong {
+    color: #000; 
+}
+.detail-item-seat span#ticket-seats {
+    font-size: 3em; 
+    font-weight: 900;
+    color: #c90000;
+    line-height: 1;
+    display: block;
+    text-align: center; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    transition: font-size 0.3s ease;
+    word-wrap: break-word;
+}
+.detail-item-seat span#ticket-seats.small-seats { 
+    font-size: 1.8em;
+    white-space: normal; 
+    line-height: 1.2;
+    text-align: center; 
+}
+.detail-item-seat span#ticket-seats.extra-small-seats { 
+    font-size: 1.2em;
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center; 
+}
+
+.ticket-separator-dashed {
+    border-top: 1px dashed #ccc;
+    margin: 20px 0;
+}
+
+#ticket-qrcode-wrapper {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    padding: 20px 0;
+}
+#ticket-qrcode-wrapper img#payment-qr-image {
+    width: 150px;
+    height: auto; 
+    display: block;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px; 
+}
+#ticket-qrcode-wrapper p#qr-instruction {
+    font-size: 0.9em;
+    color: #555;
+    margin: 5px 0 15px 0;
+}
+#ticket-qrcode-wrapper p#ticket-code-wrapper { 
+    text-align: center;
+    font-size: 1.1em;
+    color: #333;
+    margin: 0;
+}
+#ticket-code-wrapper strong {
+    font-weight: bold; 
+}
+#ticket-code-wrapper span#ticket-code {
+    display: inline-block;
+    color: #333; 
+    font-weight: bold; 
+    padding-left: 5px; 
+    letter-spacing: 1px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.ticket-footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #999;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+    margin-top: auto; 
+}
+/* --- KẾT THÚC CSS VÉ --- */
