@@ -584,9 +584,14 @@ function proceedToPayment(){
     // Ẩn nút "Thanh toán" ban đầu
     const payBtn = document.querySelector("#booking button[onclick='proceedToPayment()']");
     if (payBtn) payBtn.style.display = "none";
-
-  // Hiện QR code
-  document.getElementById("qr-container").classList.remove("hidden");
+    prepareTicketDetails(); // (Hàm này mình sẽ tạo ở Bước 2)
+    
+    // Ẩn trang đặt vé
+    document.getElementById('booking').classList.add('hidden');
+    // Hiện trang vé (vẫn đang chứa QR thanh toán)
+     document.getElementById('ticket-receipt-container').classList.remove('hidden');
+     console.log("Đã hiện vé thanh toán, bắt đầu chờ 10s...");
+    startAutoShowTicket();
 }
 
 // ===== POPUP ĐĂNG NHẬP / ĐĂNG KÝ =====
@@ -652,8 +657,44 @@ function goHome() {
 }
 // THANH TOÁN VÀ IN VÉ (Nguyễn Văn An)
 //  XÁC NHẬN THANH TOÁN VÀ IN VÉ
+// HÀM 2: HÀM CHUẨN BỊ VÉ (HÀM MỚI - CHỈ ĐIỀN CHỮ)
+function prepareTicketDetails() {
+    // --- LẤY THÔNG TIN ĐỂ IN VÉ ---
+    const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
+    const showtime = document.getElementById('showtime').value;
+    const seats = selectedSeats.join(', ');
+    const price = document.getElementById('total-price').innerText;
+    const ticketDate = new Date();
+    ticketDate.setFullYear(2025); 
+    const formattedDate = ticketDate.toLocaleDateString('vi-VN', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric' 
+    });
+    const cinema = "CGV CINEMA";
+
+    // --- ĐIỀN THÔNG TIN VÀO CÁC ELEMENT CỦA VÉ ---
+    document.getElementById('ticket-cinema').innerText = cinema;
+    document.getElementById('ticket-movie-title').innerText = movieTitle;
+    document.getElementById('ticket-date').innerText = formattedDate;
+    document.getElementById('ticket-showtime').innerText = showtime;
+    document.getElementById('ticket-price').innerText = price;
+    const selectedSeatsArray = Array.from(document.querySelectorAll('.seat.selected')).map(seat => seat.innerText);
+const seatsToDisplay = selectedSeatsArray.join(', '); 
+document.getElementById('ticket-seats').innerText = seatsToDisplay;
+    const seatsEl = document.getElementById('ticket-seats');
+    if (seatsEl) {
+        seatsEl.innerText = seats;
+        const numSeats = selectedSeats.length; 
+        seatsEl.classList.remove("small-seats", "extra-small-seats");
+        if (numSeats > 2) { 
+            seatsEl.classList.add("extra-small-seats");
+         } else if (numSeats > 1) {
+         seatsEl.classList.add("small-seats");
+}
+    }
+}
 function generateAndShowTicket() {
-   
 // --- LẤY THÔNG TIN ĐỂ IN VÉ ---
 const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
 const showtime = document.getElementById('showtime').value;
@@ -669,6 +710,20 @@ let ticketCode = document.getElementById('ticket-code')?.innerText;
         console.error("Không tìm thấy phần tử #ticket-qrcode-wrapper để tạo QR vé.");
         return;}
     }
+    ticketQRCodeWrapper.innerHTML = '';
+    const ticketSeatsEl = document.getElementById('ticket-seats');
+if (ticketSeatsEl) {
+    const seatsText = ticketSeatsEl.innerText;
+    // Xóa tất cả các class kích thước cũ trước
+    ticketSeatsEl.classList.remove('small-seats', 'extra-small-seats');
+
+    // Tùy chỉnh ngưỡng (ngưỡng này có thể thay đổi tùy thuộc vào font và độ rộng bạn muốn)
+    if (seatsText.length > 7 && seatsText.length <= 30) { 
+        ticketSeatsEl.classList.add('small-seats');
+    } else if (seatsText.length > 7) { 
+        ticketSeatsEl.classList.add('extra-small-seats');
+    }
+}
 const date = new Date().toLocaleDateString('vi-VN');
 const cinema = document.querySelector('#ticket-receipt-container .ticket-header #ticket-cinema')?.innerText || "N/A";
 ticketQRCodeWrapper.innerHTML = '';
@@ -712,6 +767,10 @@ const qrCodeContainer = document.createElement('div');
             correctLevel: QRCode.CorrectLevel.H
         });
         console.log("Đã tạo QR code vé thành công.");
+        const codeDisplay = document.createElement('p');
+        codeDisplay.style.textAlign = 'center';
+        codeDisplay.innerHTML = `<strong>Mã vé:</strong> <span style="font-weight:bold; font-family: 'Courier New', monospace;">${ticketCode}</span>`;
+        ticketQRCodeWrapper.appendChild(codeDisplay);
     } 
     
     catch (e) {
