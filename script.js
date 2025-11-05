@@ -703,7 +703,7 @@ const price = document.getElementById('total-price').innerText;
 let ticketCode = document.getElementById('ticket-code')?.innerText;
     if (!ticketCode || ticketCode.length < 5) { // Kiểm tra xem mã vé hợp lệ chưa
        ticketCode = "CGV" + Math.floor(Math.random() * 900000 + 100000);
-       const codeEl = document.getElementById('ticket-code');
+       const codeEl = document.getElementById('ticketgt-code');
        if (codeEl) codeEl.innerText = ticketCode;
        const ticketQRCodeWrapper = document.getElementById('ticket-qrcode-wrapper');
     if (!ticketQRCodeWrapper) {
