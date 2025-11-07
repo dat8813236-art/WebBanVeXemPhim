@@ -1,7 +1,7 @@
 let currentMovie = null;
 let selectedSeats = [];
-let autoShowTicketTimer = null
-const payButton = document.getElementById('main-pay-button');
+let autoShowTicketTimer = null;
+const payButton = document.getElementById("main-pay-button");
 // Thông tin phim mẫu
 const movies = {
   AVT: {
@@ -441,7 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   // Bắt tất cả ảnh phim trong danh sách
   const movieImages = document.querySelectorAll(".movie-card img");
-  
+
   movieImages.forEach((img) => {
     img.addEventListener("click", () => {
       // ... (Phần kiểm tra thông tin phim giữ nguyên)
@@ -476,13 +476,13 @@ document.addEventListener("DOMContentLoaded", () => {
           closeTrailer();
         }
       });
-      
+
       // 3. NGĂN SỰ KIỆN LAN TRUYỀN (propagation) khi click vào khung chứa video (trailer-box)
       const trailerBox = overlay.querySelector(".trailer-box");
       if (trailerBox) {
-          trailerBox.addEventListener('click', (e) => {
-              e.stopPropagation();
-          });
+        trailerBox.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
       }
     });
   });
@@ -492,12 +492,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function closeTrailer() {
   const overlay = document.querySelector(".trailer-overlay");
   if (overlay) {
-      // Quan trọng: Dừng video bằng cách set src về rỗng
-      const iframe = overlay.querySelector('iframe');
-      if (iframe) {
-          iframe.src = "";
-      }
-      overlay.remove();
+    // Quan trọng: Dừng video bằng cách set src về rỗng
+    const iframe = overlay.querySelector("iframe");
+    if (iframe) {
+      iframe.src = "";
+    }
+    overlay.remove();
   }
 }
 
@@ -514,11 +514,14 @@ function goBack() {
 function goToBooking() {
   document.getElementById("movie-detail").classList.add("hidden");
   document.getElementById("booking").classList.remove("hidden");
-    const qr = document.getElementById("qr-container");
-  if (!qr.classList.contains('hidden')) qr.classList.add("hidden");
+  const qr = document.getElementById("qr-container");
+  if (!qr.classList.contains("hidden")) qr.classList.add("hidden");
   const ticketContainer = document.getElementById("ticket-receipt-container");
-  if (!ticketContainer.classList.contains('hidden')) ticketContainer.classList.add("hidden");
-    const payBtn = document.querySelector("#booking button[onclick='proceedToPayment()']");
+  if (!ticketContainer.classList.contains("hidden"))
+    ticketContainer.classList.add("hidden");
+  const payBtn = document.querySelector(
+    "#booking button[onclick='proceedToPayment()']"
+  );
   if (payBtn) payBtn.style.display = "inline-block";
   if (autoShowTicketTimer) {
     clearTimeout(autoShowTicketTimer);
@@ -575,57 +578,74 @@ function updateTotal() {
 
 // Thanh toán -> hiện QR
 // HÀM 1: HÀM THANH TOÁN
-function proceedToPayment(){
-    if (selectedSeats.length === 0) {
-        alert("Vui lòng chọn ghế trước khi thanh toán!");
-        return;
-    }
+function proceedToPayment() {
+  if (selectedSeats.length === 0) {
+    alert("Vui lòng chọn ghế trước khi thanh toán!");
+    return;
+  }
 
-    // Ẩn nút "Thanh toán" ban đầu
-    const payBtn = document.querySelector("#booking button[onclick='proceedToPayment()']");
-    if (payBtn) payBtn.style.display = "none";
-    prepareTicketDetails(); // (Hàm này mình sẽ tạo ở Bước 2)
-    
-    // Ẩn trang đặt vé
-    document.getElementById('booking').classList.add('hidden');
-    // Hiện trang vé (vẫn đang chứa QR thanh toán)
-     document.getElementById('ticket-receipt-container').classList.remove('hidden');
-     console.log("Đã hiện vé thanh toán, bắt đầu chờ 10s...");
-    startAutoShowTicket();
+  // Ẩn nút "Thanh toán" ban đầu
+  const payBtn = document.querySelector(
+    "#booking button[onclick='proceedToPayment()']"
+  );
+  if (payBtn) payBtn.style.display = "none";
+  prepareTicketDetails(); // (Hàm này mình sẽ tạo ở Bước 2)
+
+  // Ẩn trang đặt vé
+  document.getElementById("booking").classList.add("hidden");
+  // Hiện trang vé (vẫn đang chứa QR thanh toán)
+  document
+    .getElementById("ticket-receipt-container")
+    .classList.remove("hidden");
+  console.log("Đã hiện vé thanh toán, bắt đầu chờ 10s...");
+  startAutoShowTicket();
 }
 
 // ===== POPUP ĐĂNG NHẬP / ĐĂNG KÝ =====
-function showLogin() {
-  document.getElementById("loginBox").style.display = "flex";
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const modal =
+    document.getElementById("loginModal") ||
+    document.getElementById("loginBox"); // tương thích 2 id
+  const openBtns = document.querySelectorAll(".openLoginBtn, .login"); // chọn cả 2 class nút mở popup bạn dùng
+  const closeBtn = modal.querySelector(".close-btn");
+  const container = modal.querySelector(".container");
+  const registerBtn = container.querySelector(".register-btn");
+  const loginBtn = container.querySelector(".login-btn");
 
-function closeLogin() {
-  document.getElementById("loginBox").style.display = "none";
-}
+  // Mở popup khi click nút
+  openBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.style.display = "flex";
+      container.classList.remove("active"); // Mặc định hiện form đăng nhập
+    });
+  });
 
-function switchTab(evt, tabName) {
-  const tabs = document.querySelectorAll(".tab-btn");
-  const contents = document.querySelectorAll(".tab-content");
-
-  contents.forEach((c) => c.classList.remove("active"));
-  tabs.forEach((t) => t.classList.remove("active"));
-
-  document.getElementById(tabName).classList.add("active");
-  evt.currentTarget.classList.add("active");
-}
-
-// Đóng popup khi click ra ngoài
-window.onclick = function (event) {
-  const modal = document.getElementById("loginBox");
-  if (event.target === modal) {
+  // Đóng popup khi click nút đóng
+  closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
-  }
-};
+  });
+
+  // Đóng popup khi click ngoài phần nội dung popup
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  // Toggle hiệu ứng chuyển tab đăng nhập/đăng ký
+  registerBtn.addEventListener("click", () => {
+    container.classList.add("active");
+  });
+
+  loginBtn.addEventListener("click", () => {
+    container.classList.remove("active");
+  });
+});
 function goHome() {
   // Ẩn các phần khác
   document.getElementById("movie-detail").classList.add("hidden");
   document.getElementById("booking").classList.add("hidden");
- document.getElementById("qr-container").classList.add("hidden");
+  document.getElementById("qr-container").classList.add("hidden");
   document.getElementById("ticket-receipt-container").classList.add("hidden");
   // Hiện lại danh sách phim
   document.getElementById("movie-list").classList.remove("hidden");
@@ -651,7 +671,7 @@ function goHome() {
   if (payBtn) payBtn.style.display = "inline-block";
   // Hiện lại màn hình chính
   document.getElementById("movie-list").classList.remove("hidden");
- showAllMovies();
+  showAllMovies();
   // Hiện tất cả phim
   showAllMovies();
 }
@@ -659,134 +679,144 @@ function goHome() {
 //  XÁC NHẬN THANH TOÁN VÀ IN VÉ
 // HÀM 2: HÀM CHUẨN BỊ VÉ (HÀM MỚI - CHỈ ĐIỀN CHỮ)
 function prepareTicketDetails() {
-    // --- LẤY THÔNG TIN ĐỂ IN VÉ ---
-    const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
-    const showtime = document.getElementById('showtime').value;
-    const seats = selectedSeats.join(', ');
-    const price = document.getElementById('total-price').innerText;
-    const ticketDate = new Date();
-    ticketDate.setFullYear(2025); 
-    const formattedDate = ticketDate.toLocaleDateString('vi-VN', { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric' 
-    });
-    const cinema = "CGV CINEMA";
+  // --- LẤY THÔNG TIN ĐỂ IN VÉ ---
+  const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
+  const showtime = document.getElementById("showtime").value;
+  const seats = selectedSeats.join(", ");
+  const price = document.getElementById("total-price").innerText;
+  const ticketDate = new Date();
+  ticketDate.setFullYear(2025);
+  const formattedDate = ticketDate.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+  const cinema = "CGV CINEMA";
 
-    // --- ĐIỀN THÔNG TIN VÀO CÁC ELEMENT CỦA VÉ ---
-    document.getElementById('ticket-cinema').innerText = cinema;
-    document.getElementById('ticket-movie-title').innerText = movieTitle;
-    document.getElementById('ticket-date').innerText = formattedDate;
-    document.getElementById('ticket-showtime').innerText = showtime;
-    document.getElementById('ticket-price').innerText = price;
-    const selectedSeatsArray = Array.from(document.querySelectorAll('.seat.selected')).map(seat => seat.innerText);
-const seatsToDisplay = selectedSeatsArray.join(', '); 
-document.getElementById('ticket-seats').innerText = seatsToDisplay;
-    const seatsEl = document.getElementById('ticket-seats');
-    if (seatsEl) {
-        seatsEl.innerText = seats;
-        const numSeats = selectedSeats.length; 
-        seatsEl.classList.remove("small-seats", "extra-small-seats");
-        if (numSeats > 2) { 
-            seatsEl.classList.add("extra-small-seats");
-         } else if (numSeats > 1) {
-         seatsEl.classList.add("small-seats");
-}
+  // --- ĐIỀN THÔNG TIN VÀO CÁC ELEMENT CỦA VÉ ---
+  document.getElementById("ticket-cinema").innerText = cinema;
+  document.getElementById("ticket-movie-title").innerText = movieTitle;
+  document.getElementById("ticket-date").innerText = formattedDate;
+  document.getElementById("ticket-showtime").innerText = showtime;
+  document.getElementById("ticket-price").innerText = price;
+  const selectedSeatsArray = Array.from(
+    document.querySelectorAll(".seat.selected")
+  ).map((seat) => seat.innerText);
+  const seatsToDisplay = selectedSeatsArray.join(", ");
+  document.getElementById("ticket-seats").innerText = seatsToDisplay;
+  const seatsEl = document.getElementById("ticket-seats");
+  if (seatsEl) {
+    seatsEl.innerText = seats;
+    const numSeats = selectedSeats.length;
+    seatsEl.classList.remove("small-seats", "extra-small-seats");
+    if (numSeats > 2) {
+      seatsEl.classList.add("extra-small-seats");
+    } else if (numSeats > 1) {
+      seatsEl.classList.add("small-seats");
     }
+  }
 }
 function generateAndShowTicket() {
-// --- LẤY THÔNG TIN ĐỂ IN VÉ ---
-const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
-const showtime = document.getElementById('showtime').value;
-const seats = document.getElementById('selected-seats').innerText;
-const price = document.getElementById('total-price').innerText;
-let ticketCode = document.getElementById('ticket-code')?.innerText;
-    if (!ticketCode || ticketCode.length < 5) { // Kiểm tra xem mã vé hợp lệ chưa
-       ticketCode = "CGV" + Math.floor(Math.random() * 900000 + 100000);
-       const codeEl = document.getElementById('ticket-code');
-       if (codeEl) codeEl.innerText = ticketCode;
-       const ticketQRCodeWrapper = document.getElementById('ticket-qrcode-wrapper');
+  // --- LẤY THÔNG TIN ĐỂ IN VÉ ---
+  const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
+  const showtime = document.getElementById("showtime").value;
+  const seats = document.getElementById("selected-seats").innerText;
+  const price = document.getElementById("total-price").innerText;
+  let ticketCode = document.getElementById("ticket-code")?.innerText;
+  if (!ticketCode || ticketCode.length < 5) {
+    // Kiểm tra xem mã vé hợp lệ chưa
+    ticketCode = "CGV" + Math.floor(Math.random() * 900000 + 100000);
+    const codeEl = document.getElementById("ticketgt-code");
+    if (codeEl) codeEl.innerText = ticketCode;
+    const ticketQRCodeWrapper = document.getElementById(
+      "ticket-qrcode-wrapper"
+    );
     if (!ticketQRCodeWrapper) {
-        console.error("Không tìm thấy phần tử #ticket-qrcode-wrapper để tạo QR vé.");
-        return;}
+      console.error(
+        "Không tìm thấy phần tử #ticket-qrcode-wrapper để tạo QR vé."
+      );
+      return;
     }
-    ticketQRCodeWrapper.innerHTML = '';
-    const ticketSeatsEl = document.getElementById('ticket-seats');
-if (ticketSeatsEl) {
+  }
+  ticketQRCodeWrapper.innerHTML = "";
+  const ticketSeatsEl = document.getElementById("ticket-seats");
+  if (ticketSeatsEl) {
     const seatsText = ticketSeatsEl.innerText;
     // Xóa tất cả các class kích thước cũ trước
-    ticketSeatsEl.classList.remove('small-seats', 'extra-small-seats');
+    ticketSeatsEl.classList.remove("small-seats", "extra-small-seats");
 
     // Tùy chỉnh ngưỡng (ngưỡng này có thể thay đổi tùy thuộc vào font và độ rộng bạn muốn)
-    if (seatsText.length > 7 && seatsText.length <= 30) { 
-        ticketSeatsEl.classList.add('small-seats');
-    } else if (seatsText.length > 7) { 
-        ticketSeatsEl.classList.add('extra-small-seats');
+    if (seatsText.length > 7 && seatsText.length <= 30) {
+      ticketSeatsEl.classList.add("small-seats");
+    } else if (seatsText.length > 7) {
+      ticketSeatsEl.classList.add("extra-small-seats");
     }
-}
-const date = new Date().toLocaleDateString('vi-VN');
-const cinema = document.querySelector('#ticket-receipt-container .ticket-header #ticket-cinema')?.innerText || "N/A";
-ticketQRCodeWrapper.innerHTML = '';
-// --- ĐIỀN THÔNG TIN VÀO VÉ ---
-document.getElementById('ticket-cinema').innerText = cinema;
-document.getElementById('ticket-movie-title').innerText = movieTitle;
-document.getElementById('ticket-date').innerText = date;
-document.getElementById('ticket-showtime').innerText = showtime;
-document.getElementById('ticket-price').innerText = price;
-document.getElementById('ticket-seats').innerText = seats;
-document.getElementById('ticket-code').innerText = ticketCode;
+  }
+  const date = new Date().toLocaleDateString("vi-VN");
+  const cinema =
+    document.querySelector(
+      "#ticket-receipt-container .ticket-header #ticket-cinema"
+    )?.innerText || "N/A";
+  ticketQRCodeWrapper.innerHTML = "";
+  // --- ĐIỀN THÔNG TIN VÀO VÉ ---
+  document.getElementById("ticket-cinema").innerText = cinema;
+  document.getElementById("ticket-movie-title").innerText = movieTitle;
+  document.getElementById("ticket-date").innerText = date;
+  document.getElementById("ticket-showtime").innerText = showtime;
+  document.getElementById("ticket-price").innerText = price;
+  document.getElementById("ticket-seats").innerText = seats;
+  document.getElementById("ticket-code").innerText = ticketCode;
 
-// --- TẠO MÃ QR VÉ ---
-const ticketQRCodeEl = document.getElementById('ticket-qrcode');
-    if (!ticketQRCodeEl) {
-        console.error("Không tìm thấy phần tử #ticket-qrcode để tạo QR vé.");
-        return;
-    }
-const ticketInfo = `MaVe: ${ticketCode} | Phim: ${movieTitle} | Ghe: ${seats} | Suat: ${showtime} | Rap: ${cinema}`;
-        if (!ticketQRCodeEl) {
-            console.error("Không tìm thấy phần tử HTML với ID: ticket-qrcode");
-            return; // Dừng lại nếu không tìm thấy
-        }console.log("Dữ liệu QR:", ticketInfo);
-ticketQRCodeEl.innerHTML = ''; // Xóa QR cũ
-// Tạo QR code mới bằng thư viện
-const qrCodeContainer = document.createElement('div');
-    qrCodeContainer.id = 'dynamic-qr-code'; // ID riêng cho QR code động
-    qrCodeContainer.style.width = '150px'; // Kích thước của QR code
-    qrCodeContainer.style.height = '150px';
-    qrCodeContainer.style.margin = '0 auto 10px auto'; // Căn giữa
-    qrCodeContainer.style.border = '1px solid #eee';
-    qrCodeContainer.style.borderRadius = '5px';
-    ticketQRCodeWrapper.appendChild(qrCodeContainer); // Thêm div mới vào wrapper
-    try {
-        new QRCode(ticketQRCodeEl, {
-            text: ticketInfo,
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-        console.log("Đã tạo QR code vé thành công.");
-        const codeDisplay = document.createElement('p');
-        codeDisplay.style.textAlign = 'center';
-        codeDisplay.innerHTML = `<strong>Mã vé:</strong> <span style="font-weight:bold; font-family: 'Courier New', monospace;">${ticketCode}</span>`;
-        ticketQRCodeWrapper.appendChild(codeDisplay);
-    } 
-    
-    catch (e) {
-        console.error("Lỗi tạo QRCode vé:", e);
-        ticketQRCodeEl.innerText = "Lỗi QR Vé";
-    }
+  // --- TẠO MÃ QR VÉ ---
+  const ticketQRCodeEl = document.getElementById("ticket-qrcode");
+  if (!ticketQRCodeEl) {
+    console.error("Không tìm thấy phần tử #ticket-qrcode để tạo QR vé.");
+    return;
+  }
+  const ticketInfo = `MaVe: ${ticketCode} | Phim: ${movieTitle} | Ghe: ${seats} | Suat: ${showtime} | Rap: ${cinema}`;
+  if (!ticketQRCodeEl) {
+    console.error("Không tìm thấy phần tử HTML với ID: ticket-qrcode");
+    return; // Dừng lại nếu không tìm thấy
+  }
+  console.log("Dữ liệu QR:", ticketInfo);
+  ticketQRCodeEl.innerHTML = ""; // Xóa QR cũ
+  // Tạo QR code mới bằng thư viện
+  const qrCodeContainer = document.createElement("div");
+  qrCodeContainer.id = "dynamic-qr-code"; // ID riêng cho QR code động
+  qrCodeContainer.style.width = "150px"; // Kích thước của QR code
+  qrCodeContainer.style.height = "150px";
+  qrCodeContainer.style.margin = "0 auto 10px auto"; // Căn giữa
+  qrCodeContainer.style.border = "1px solid #eee";
+  qrCodeContainer.style.borderRadius = "5px";
+  ticketQRCodeWrapper.appendChild(qrCodeContainer); // Thêm div mới vào wrapper
+  try {
+    new QRCode(ticketQRCodeEl, {
+      text: ticketInfo,
+      width: 150,
+      height: 150,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+    console.log("Đã tạo QR code vé thành công.");
+    const codeDisplay = document.createElement("p");
+    codeDisplay.style.textAlign = "center";
+    codeDisplay.innerHTML = `<strong>Mã vé:</strong> <span style="font-weight:bold; font-family: 'Courier New', monospace;">${ticketCode}</span>`;
+    ticketQRCodeWrapper.appendChild(codeDisplay);
+  } catch (e) {
+    console.error("Lỗi tạo QRCode vé:", e);
+    ticketQRCodeEl.innerText = "Lỗi QR Vé";
+  }
 }
 function startAutoShowTicket() {
-    if (autoShowTicketTimer) {
-        clearTimeout(autoShowTicketTimer);
-    }
-    console.log("Bắt đầu chờ 10 giây để báo thành công và tạo QR vé...");
-    autoShowTicketTimer = setTimeout(() => {
-      console.log("Hết 10 giây chờ.");
-        alert("Đã thanh toán thành công!");
-        generateAndShowTicket();
-        autoShowTicketTimer = null;
-    }, 10000);
+  if (autoShowTicketTimer) {
+    clearTimeout(autoShowTicketTimer);
+  }
+  console.log("Bắt đầu chờ 10 giây để báo thành công và tạo QR vé...");
+  autoShowTicketTimer = setTimeout(() => {
+    console.log("Hết 10 giây chờ.");
+    alert("Đã thanh toán thành công!");
+    generateAndShowTicket();
+    autoShowTicketTimer = null;
+  }, 10000);
 }
