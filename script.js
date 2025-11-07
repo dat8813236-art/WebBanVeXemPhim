@@ -599,20 +599,68 @@ function showLogin() {
   document.getElementById("loginBox").style.display = "flex";
 }
 
-function closeLogin() {
-  document.getElementById("loginBox").style.display = "none";
+    // --- ĐIỀN THÔNG TIN VÀO CÁC ELEMENT CỦA VÉ ---
+    document.getElementById('ticket-cinema').innerText = cinema;
+    document.getElementById('ticket-movie-title').innerText = movieTitle;
+    document.getElementById('ticket-date').innerText = formattedDate;
+    document.getElementById('ticket-showtime').innerText = showtime;
+    document.getElementById('ticket-price').innerText = price;
+    const selectedSeatsArray = Array.from(document.querySelectorAll('.seat.selected')).map(seat => seat.innerText);
+const seatsToDisplay = selectedSeatsArray.join(', '); 
+document.getElementById('ticket-seats').innerText = seatsToDisplay;
+    const seatsEl = document.getElementById('ticket-seats');
+    if (seatsEl) {
+        seatsEl.innerText = seats;
+        const numSeats = selectedSeats.length; 
+        seatsEl.classList.remove("small-seats", "extra-small-seats");
+        if (numSeats > 2) { 
+            seatsEl.classList.add("extra-small-seats");
+         } else if (numSeats > 1) {
+         seatsEl.classList.add("small-seats");
 }
-
-function switchTab(evt, tabName) {
-  const tabs = document.querySelectorAll(".tab-btn");
-  const contents = document.querySelectorAll(".tab-content");
-
-  contents.forEach((c) => c.classList.remove("active"));
-  tabs.forEach((t) => t.classList.remove("active"));
-
-  document.getElementById(tabName).classList.add("active");
-  evt.currentTarget.classList.add("active");
+    }
 }
+function generateAndShowTicket() {
+// --- LẤY THÔNG TIN ĐỂ IN VÉ ---
+const movieTitle = currentMovie ? currentMovie.title : "Tên phim";
+const showtime = document.getElementById('showtime').value;
+const seats = document.getElementById('selected-seats').innerText;
+const price = document.getElementById('total-price').innerText;
+let ticketCode = document.getElementById('ticket-code')?.innerText;
+    if (!ticketCode || ticketCode.length < 5) { // Kiểm tra xem mã vé hợp lệ chưa
+       ticketCode = "CGV" + Math.floor(Math.random() * 900000 + 100000);
+       const codeEl = document.getElementById('ticketgt-code');
+       if (codeEl) codeEl.innerText = ticketCode;
+       const ticketQRCodeWrapper = document.getElementById('ticket-qrcode-wrapper');
+    if (!ticketQRCodeWrapper) {
+        console.error("Không tìm thấy phần tử #ticket-qrcode-wrapper để tạo QR vé.");
+        return;}
+    }
+    ticketQRCodeWrapper.innerHTML = '';
+    const ticketSeatsEl = document.getElementById('ticket-seats');
+if (ticketSeatsEl) {
+    const seatsText = ticketSeatsEl.innerText;
+    // Xóa tất cả các class kích thước cũ trước
+    ticketSeatsEl.classList.remove('small-seats', 'extra-small-seats');
+
+    // Tùy chỉnh ngưỡng (ngưỡng này có thể thay đổi tùy thuộc vào font và độ rộng bạn muốn)
+    if (seatsText.length > 7 && seatsText.length <= 30) { 
+        ticketSeatsEl.classList.add('small-seats');
+    } else if (seatsText.length > 7) { 
+        ticketSeatsEl.classList.add('extra-small-seats');
+    }
+}
+const date = new Date().toLocaleDateString('vi-VN');
+const cinema = document.querySelector('#ticket-receipt-container .ticket-header #ticket-cinema')?.innerText || "N/A";
+ticketQRCodeWrapper.innerHTML = '';
+// --- ĐIỀN THÔNG TIN VÀO VÉ ---
+document.getElementById('ticket-cinema').innerText = cinema;
+document.getElementById('ticket-movie-title').innerText = movieTitle;
+document.getElementById('ticket-date').innerText = date;
+document.getElementById('ticket-showtime').innerText = showtime;
+document.getElementById('ticket-price').innerText = price;
+document.getElementById('ticket-seats').innerText = seats;
+document.getElementById('ticket-code').innerText = ticketCode;
 
 // Đóng popup khi click ra ngoài
 window.onclick = function (event) {

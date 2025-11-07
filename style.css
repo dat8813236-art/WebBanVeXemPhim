@@ -1,4 +1,12 @@
 /* ===== RESET GIAO DIỆN CHUNG ===== */
+*{
+    font-family:"poppins",sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
 body {
   margin: 0;
   padding: 0;
@@ -12,28 +20,211 @@ header {
 }
 
 /* ===== HỘP POPUP ĐĂNG NHẬP / ĐĂNG KÝ ===== */
-.login-box {
+.openLoginBtn {
+ 
+  color: white;
+  border: none;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 10px;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  background-color: #c90000;
+}
+/* ===== HIỆU ỨNG HOVER HIỆN NÚT CHI TIẾT ===== */
+.movie-image:hover .detail-btn {
   display: none;
+}
+/*=== */
+.modal {
+  display: none; /* Ẩn popup mặc định */
   position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6); /* Nền mờ */
+  
   justify-content: center;
   align-items: center;
 }
 
-/* ===== KHUNG NỘI DUNG POPUP ===== */
-.login-content {
-  background: #fff;
-  width: 350px;
-  padding: 20px;
-  border-radius: 15px;
+.modal-content {
+  background: transparent; /* hoặc trắng nếu muốn */
+  padding: 0;
+  border-radius: 20px;
   position: relative;
-  animation: fadeIn 0.3s ease;
 }
+
+.close-btn {
+  position: absolute;
+  top: 7.5px; right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+.close-btn:hover {
+  color: #e63946;
+}
+.container{
+    position: relative;
+    width:425px ;
+    height: 225px;
+    background: #fff;
+    margin: 10px;
+    border-radius: 20px;
+    
+    overflow: hidden;
+}
+.container h1{
+    font-size: 20px;
+    margin: -5px 0;
+}
+.container p{
+    font-size: 13px;
+    margin: 7.5px 0;
+}   
+form{
+    width: 100%;
+}
+.form-box{
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    color:#333;
+    padding:20px;
+    z-index: 1;
+    transition:0.6s ease-in-out 1.2s,
+    visibility 0s 1s;
+}
+.container.active .form-box{
+    right: 50%;
+}
+.form-box.register{
+    visibility: hidden;
+}
+.container.active .form-box.register{
+    visibility:visible  ;
+}
+
+.input-box{
+    position:relative ;
+    margin: 10px 0;
+}
+.input-box input{
+    width: 100%;
+    padding: 3px 25px 6.5px 3px;
+    background: #eee;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 10px;
+    color: #333;
+    font-weight: 500;
+}
+.input-box input::placeholder{
+    color: #888;
+    font-weight: 400;
+}
+.input-box i{
+    position: absolute;
+    right:10px;
+    top:50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+.forgot-link{
+    margin: -7.5px 0 7.5px;
+
+}
+.forgot-link a{
+    font-size: 10px;
+    color: #333;
+
+}
+.btn{
+    width: 100%;
+    height: 48px;
+    background: #c90000;
+    border-radius: 8px;
+    
+    border:none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    color:#fff ;
+    font-weight: 600;
+}
+
+
+.toggle-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+}
+.toggle-box::before{
+    content: "";
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    border-radius:150px ;
+    z-index: 2;
+    transition: 1.8s ease-in-out;
+    background: #c90000;
+}
+.container.active .toggle-box::before{
+    left: 50%;
+}
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    transition: 0.6s ease-in-out;
+    align-items: center;
+}
+.toggle-panel.toggle-left{
+    left: 0;
+    transition-delay: 1.2s;
+}
+.container.active .toggle-panel.toggle-left{
+    left:-50%;
+    transition-delay: 0.6s;
+}
+.toggle-panel.toggle-right{
+    right: -50%;
+    transition-delay:0.6s ;
+}
+.container.active .toggle-panel.toggle-right{
+    right: 0;
+    transition-delay: 1.2s;
+}
+.toggle-panel p{
+    margin-bottom: 20px;
+}
+.toggle-panel .btn{
+    width: 80px;
+    height: 46px;
+    background: transparent;
+    border: 2px solid #fff;
+    
+}
+
 
 /* ===== NÚT ĐÓNG (X) POPUP ===== */
 .close-btn {
@@ -42,6 +233,7 @@ header {
   top: 10px;
   font-size: 25px;
   cursor: pointer;
+  color: black;
 }
 
 /* ===== THANH TAB (ĐĂNG NHẬP / ĐĂNG KÝ) ===== */
@@ -225,25 +417,6 @@ header {
   color: #c90000;
 }
 
-/* ===== NÚT ĐĂNG NHẬP / ĐĂNG KÝ ===== */
-.login {
-  background-color: #c90000;
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 10px;
-  transition: all 0.3s ease;
-  margin-left: 20px;
-}
-
-.login:hover {
-  background-color: #a00000;
-  box-shadow: 0 0 8px rgba(201, 0, 0, 0.5);
-  transform: scale(1.05);
-}
 
 /* ===== KHUNG DROPDOWN MENU CON ===== */
 .dropdown-content {
