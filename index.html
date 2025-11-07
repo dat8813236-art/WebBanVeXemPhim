@@ -4,36 +4,70 @@
     <meta charset="UTF-8" />
     <title>Web Đặt Vé Xem Phim Của Nhóm 2 </title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
-<!-- Popup Đăng ký / Đăng nhập -->
-<div id="loginBox" class="login-box">
-  <div class="login-content">
-    <span class="close-btn" onclick="closeLogin()">&times;</span>
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab(event, 'loginForm')">Đăng nhập</button>
-      <button class="tab-btn" onclick="switchTab(event, 'registerForm')">Đăng ký</button>
-    </div>
+<!-- Đặng Việt Hoàn  -->
+<!-- Popup Modal mới -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeLoginBtn">&times;</span>
+    <div class="container">
+        <!-- Nội dung form đăng nhập và đăng ký bạn đã có -->
+        <div class="form-box login">
+            <form action="#">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" required />
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required />
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="forgot-link"><a href="#">Forgot password?</a></div>
+                <button type="submit" class="btn">Login</button>
+                <p>Continue with <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a></p> 
+            </form>
+        </div>
 
-    <!-- Đăng nhập -->
-    <div id="loginForm" class="tab-content active">
-      <h2>Đăng nhập</h2>
-      <input type="text" placeholder="Tên đăng nhập" id="loginUser" />
-      <input type="password" placeholder="Mật khẩu" id="loginPass" />
-      <button class="submit-btn">Đăng nhập</button>
-    </div>
+        <div class="form-box register">
+            <form action="#">
+                <h1>Register</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" required />
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required />
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Repassword" required />
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="forgot-link"><a href="#">Forgot password?</a></div>
+                <button type="submit" class="btn">Register</button>
+                <p>Or continue with <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a></p>
+            </form>
+        </div>
 
-    <!-- Đăng ký -->
-    <div id="registerForm" class="tab-content">
-      <h2>Đăng ký</h2>
-      <input type="text" placeholder="Tên đăng nhập" id="regUser" />
-      <input type="email" placeholder="Email" id="regEmail" />
-      <input type="password" placeholder="Mật khẩu" id="regPass" />
-      <button class="submit-btn">Đăng ký</button>
+        <div class="toggle-box">
+          <div class="toggle-panel toggle-left">
+            <h1>Hello, Welcome</h1>
+            <p>Don't have an account</p>
+            <button type="button" class="btn register-btn">Register</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>Welcome Back</h1>
+            <p>Already have an account?</p>
+            <button type="button" class="btn login-btn">Login</button>
+          </div>
+        </div>
     </div>
   </div>
 </div>
 
-
+<!-- Lê Tiến Đạt -->
   <body>
     <div class="movie-app-header">
       <div class="header-border top-border"></div>
@@ -47,7 +81,7 @@
         </div>
         <nav class="main-nav">
           <ul>
-               <li><a href="#" onclick="showAllMovies()">TRANG CHỦ</a></li>
+               <li><a href="#" onclick="goHome()">TRANG CHỦ</a></li>
             <li class="dropdown">
               <a href="#">THỂ LOẠI ▾</a>
               <ul class="dropdown-content">
@@ -91,11 +125,12 @@
               </ul>
             </li>
 
-            <li><a href="#"onclick="filterByGenre('phimchieurap')">PHIM CHIẾU RẠP</a></li>
-            <li><a href="#"onclick="filterByGenre('phimle')">PHIM LẺ</a></li>
-            <li><a href="#"onclick="filterByGenre('phimbo')">PHIM BỘ</a></li>
+            <li><a href="#"onclick="filterByGenre('phimchieurap')">PHIM ĐANG CHIẾU </a></li>
+            <li><a href="#"onclick="filterByGenre('phímapchieu')">PHIM SẮP CHIẾU </a></li>
+            
+            
 
-            <button class="login" onclick="showLogin()">ĐĂNG KÝ/ĐĂNG NHẬP</button>
+            <button class="openLoginBtn" onclick="showLogin()">ĐĂNG KÝ/ĐĂNG NHẬP</button>
           </ul>
         </nav>
       </div>
@@ -129,9 +164,9 @@
     <div id="movie-list" class="movies">
      
       <!--Avatar 2-->
-<div class="movie-card" data-country="usa" data-genre="khoahocvientuong phimchieurap phimle phimbo ">
+<div class="movie-card" data-country="usa" data-genre="khoahocvientuong phimchieurap phimle  ">
   <div class="movie-image">
-    <img src="img/avatar.jpg" alt="Avatar 2" />
+    <img src="img/avatar.jpg" alt="Avatar 2" data-code="AVT" />
     <h3>Avatar: Dòng Chảy Của Nước</h3>
     <button class="detail-btn" onclick="showDetails('AVT')">Chi tiết</button>
   </div>
@@ -140,7 +175,7 @@
 <!--SPIDER-MAN: NO WAY HOME-->
 <div class="movie-card" data-country="usa" data-genre="hanhdong khoahocvientuong phimchieurap phimle ">
   <div class="movie-image">
-    <img src="img/SPIDERMAN.jpg" alt="SPIDER-MAN: NO WAY HOME" />
+    <img src="img/SPIDERMAN.jpg" alt="SPIDER-MAN: NO WAY HOME" data-code="NWH" />
     <h3>SPIDER-MAN: NO WAY HOME</h3>
     <button class="detail-btn" onclick="showDetails('NWH')">Chi tiết</button>
   </div>
@@ -149,123 +184,123 @@
 <!--OPPENHEIMER-->
 <div class="movie-card" data-country="usa" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Oppenheimer.jpg" alt="Oppenheimer" />
+    <img src="img/Oppenheimer.jpg" alt="Oppenheimer" data-code="OPP" />
     <h3>Oppenheimer</h3>
     <button class="detail-btn" onclick="showDetails('OPP')">Chi tiết</button>
   </div>
 </div>
 
 <!--BARBIE (2023)-->
-<div class="movie-card" data-country="usa" data-genre="haihuoc">
+<div class="movie-card" data-country="usa" data-genre="haihuoc phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Barbie.jpg" alt="Barbie" />
+    <img src="img/Barbie.jpg" alt="Barbie" data-code="BAR" />
     <h3>Barbie (2023)</h3>
     <button class="detail-btn" onclick="showDetails('BAR')">Chi tiết</button>
   </div>
 </div>
 
 <!--QUỶ ĂN TẠNG 3-->
-<div class="movie-card" data-country="usa" data-genre="kinhdi">
+<div class="movie-card" data-country="usa" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/QAT.jpg" alt="Quỷ ăn tạng 3" />
+    <img src="img/QAT.jpg" alt="Quỷ ăn tạng 3" data-code="QAT" />
     <h3>Quỷ ăn tạng 3</h3>
     <button class="detail-btn" onclick="showDetails('QAT')">Chi tiết</button>
   </div>
 </div>
 
 <!--VENOM 3-->
-<div class="movie-card" data-country="usa" data-genre="hanhdong">
+<div class="movie-card" data-country="usa" data-genre="hanhdong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Venom3.jpg" alt="Venom 3" />
+    <img src="img/Venom3.jpg" alt="Venom 3"  data-code="VEN"/>
     <h3>Venom 3: Điệu Nhảy Cuối Cùng</h3>
     <button class="detail-btn" onclick="showDetails('VEN')">Chi tiết</button>
   </div>
 </div>
 
 <!--MƯA ĐỎ-->
-<div class="movie-card" data-country="vietnam" data-genre="chientranh">
+<div class="movie-card" data-country="vietnam" data-genre="chientranh phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Muado.jpg" alt="Mưa đỏ" />
+    <img src="img/Muado.jpg" alt="Mưa đỏ" data-code="MUA" />
     <h3>Mưa Đỏ</h3>
     <button class="detail-btn" onclick="showDetails('MUA')">Chi tiết</button>
   </div>
 </div>
 
 <!--CHAINSAW MAN-->
-<div class="movie-card" data-country="japan" data-genre="anime">
+<div class="movie-card" data-country="japan" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Chainsawman.jpg" alt="CHAINSAW MAN - THE MOVIE: CHƯƠNG REZE" />
+    <img src="img/Chainsawman.jpg" alt="CHAINSAW MAN - THE MOVIE: CHƯƠNG REZE" data-code="CSM"/>
     <h3>CHAINSAW MAN - THE MOVIE: CHƯƠNG REZE</h3>
     <button class="detail-btn" onclick="showDetails('CSM')">Chi tiết</button>
   </div>
 </div>
 
 <!--THANH GƯƠM DIỆT QUỶ-->
-<div class="movie-card" data-country="japan" data-genre="anime">
+<div class="movie-card" data-country="japan" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/KNY.jpg" alt="THANH GƯƠM DIỆT QUỶ: VÔ HẠN THÀNH" />
+    <img src="img/KNY.jpg" alt="THANH GƯƠM DIỆT QUỶ: VÔ HẠN THÀNH" data-code="KNY"/>
     <h3>THANH GƯƠM DIỆT QUỶ: VÔ HẠN THÀNH</h3>
     <button class="detail-btn" onclick="showDetails('KNY')">Chi tiết</button>
   </div>
 </div>
 
 <!--CHÚ THUẬT HỒI CHIẾN-->
-<div class="movie-card" data-country="japan" data-genre="anime">
+<div class="movie-card" data-country="japan" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/JJK.jpg" alt="CHÚ THUẬT HỒI CHIẾN: HOÀI NGỌC / NGỌC CHIẾT – THE MOVIE" />
+    <img src="img/JJK.jpg" alt="CHÚ THUẬT HỒI CHIẾN: HOÀI NGỌC / NGỌC CHIẾT – THE MOVIE" data-code="JJK" />
     <h3>CHÚ THUẬT HỒI CHIẾN: HOÀI NGỌC / NGỌC CHIẾT – THE MOVIE</h3>
     <button class="detail-btn" onclick="showDetails('JJK')">Chi tiết</button>
   </div>
 </div>
 
 <!--NĂM ĐÊM KINH HOÀNG 2-->
-<div class="movie-card" data-country="usa" data-genre="kinhdi">
+<div class="movie-card" data-country="usa" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/5night.jpg" alt="NĂM ĐÊM KINH HOÀNG 2" />
+    <img src="img/5night.jpg" alt="NĂM ĐÊM KINH HOÀNG 2" data-code="FNAF2"/>
     <h3>NĂM ĐÊM KINH HOÀNG 2</h3>
     <button class="detail-btn" onclick="showDetails('FNAF2')">Chi tiết</button>
   </div>
 </div>
 
 <!--QUÁI THÚ VÔ HÌNH: VÙNG ĐẤT CHẾT CHÓC-->
-<div class="movie-card" data-country="usa" data-genre="khoahocvientuong">
+<div class="movie-card" data-country="usa" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/QTVH.jpg" alt="QUÁI THÚ VÔ HÌNH: VÙNG ĐẤT CHẾT CHÓC" />
+    <img src="img/QTVH.jpg" alt="QUÁI THÚ VÔ HÌNH: VÙNG ĐẤT CHẾT CHÓC" data-code="QTVH" />
     <h3>QUÁI THÚ VÔ HÌNH: VÙNG ĐẤT CHẾT CHÓC</h3>
     <button class="detail-btn" onclick="showDetails('QTVH')">Chi tiết</button>
   </div>
 </div>
 
 <!--NHÀ MA XÓ-->
-<div class="movie-card" data-country="vietnam" data-genre="kinhdi">
+<div class="movie-card" data-country="vietnam" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/NMX.jpg" alt="NHÀ MA XÓ" />
+    <img src="img/NMX.jpg" alt="NHÀ MA XÓ" data-code="NMX" />
     <h3>NHÀ MA XÓ</h3>
     <button class="detail-btn" onclick="showDetails('NMX')">Chi tiết</button>
   </div>
 </div>
 <!--ANNABELLE: ÁC QUỶ TRỞ VỀ-->
-<div class="movie-card" data-country="usa" data-genre="kinhdi">
+<div class="movie-card" data-country="usa" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Annabelle.jpg" alt="Annabelle: Ác Quỷ Trở Về" />
+    <img src="img/Annabelle.jpg" alt="Annabelle: Ác Quỷ Trở Về" data-code="ANN" />
     <h3>Annabelle: Ác Quỷ Trở Về</h3>
     <button class="detail-btn" onclick="showDetails('ANN')">Chi tiết</button>
   </div>
 </div>
 
 <!--CÙ LAO XÁC SỐNG-->
-<div class="movie-card" data-country="vietnam" data-genre="kinhdi">
+<div class="movie-card" data-country="vietnam" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Culao.jpg" alt="Cù Lao Xác Sống" />
+    <img src="img/Culao.jpg" alt="Cù Lao Xác Sống" data-code="CLS" />
     <h3>Cù Lao Xác Sống</h3>
     <button class="detail-btn" onclick="showDetails('CLS')">Chi tiết</button>
   </div>
 </div>
 
 <!--NHÀ BÀ NỮ-->
-<div class="movie-card" data-country="vietnam" data-genre="giadinh">
+<div class="movie-card" data-country="vietnam" data-genre="giadinh phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/NhaBaNu.jpg" alt="Nhà Bà Nữ" />
+    <img src="img/NhaBaNu.jpg" alt="Nhà Bà Nữ" data-code="NBN" />
     <h3>Nhà Bà Nữ</h3>
     <button class="detail-btn" onclick="showDetails('NBN')">Chi tiết</button>
   </div>
@@ -274,57 +309,57 @@
 <!--JOHNNY ENGLISH: TÁI XUẤT GIANG HỒ-->
 <div class="movie-card" data-country="uk" data-genre="haihuoc hanhdong">
   <div class="movie-image">
-    <img src="img/JohnnyEnglish.jpg" alt="Johnny English: Tái Xuất Giang Hồ" />
+    <img src="img/JohnnyEnglish.jpg" alt="Johnny English: Tái Xuất Giang Hồ" data-code="JEN"/>
     <h3>Johnny English: Tái Xuất Giang Hồ</h3>
     <button class="detail-btn" onclick="showDetails('JEN')">Chi tiết</button>
   </div>
 </div>
 
 <!--SUPERMAN (2025)-->
-<div class="movie-card" data-country="usa" data-genre="hanhdong">
+<div class="movie-card" data-country="usa" data-genre="hanhdong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Superman.jpg" alt="Superman (2025)" />
+    <img src="img/Superman.jpg" alt="Superman (2025)" data-code="SUP" />
     <h3>Superman (2025)</h3>
     <button class="detail-btn" onclick="showDetails('SUP')">Chi tiết</button>
   </div>
 </div>
 
 <!--BỘ TỨ SIÊU ĐẲNG: BƯỚC ĐI ĐẦU TIÊN-->
-<div class="movie-card" data-country="usa" data-genre="khoahocvientuong">
+<div class="movie-card" data-country="usa" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Fantastic4.jpg" alt="Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên" />
+    <img src="img/Fantastic4.jpg" alt="Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên" data-code="FANT4" />
     <h3>Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên</h3>
     <button class="detail-btn" onclick="showDetails('FANT4')">Chi tiết</button>
   </div>
 </div>
 <!--Bỗng dưng trúng số-->
-<div class="movie-card"  data-country="korea" data-genre="haihuoc">
+<div class="movie-card"  data-country="korea" data-genre="haihuoc phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/BDTS.jpg" alt="Bỗng dưng trúng số" />
+    <img src="img/BDTS.jpg" alt="Bỗng dưng trúng số" data-code="BDTS" />
     <h3>Bỗng dưng trúng số</h3>
     <button class="detail-btn" onclick="showDetails('BDTS')">Chi tiết</button>
   </div>
 </div>
 <!--John Wick-->
-<div class="movie-card" data-country="usa" data-genre="hanhdong">
+<div class="movie-card" data-country="usa" data-genre="hanhdong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/JohnWick.jpg" alt="John Wick" />
+    <img src="img/JohnWick.jpg" alt="John Wick" data-code="johnwick" />
     <h3>John Wick</h3>
     <button class="detail-btn" onclick="showDetails('johnwick')">Chi tiết</button>
   </div>
 </div>
 <!--Mad Max: Fury Road-->
-<div class="movie-card" data-country="usa" data-genre="hanhdong">
+<div class="movie-card" data-country="usa" data-genre="hanhdong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/MadMaxFuryRoad.jpg" alt="Mad Max: Fury Road" />
+    <img src="img/MadMaxFuryRoad.jpg" alt="Mad Max: Fury Road" data-code="madmax"/>
     <h3>Mad Max: Fury Road</h3>
     <button class="detail-btn" onclick="showDetails('madmax')">Chi tiết</button>
   </div>
 </div>
 <!--The Dark Knight-->
-<div class="movie-card" data-country="usa" data-genre="hanhdong">
+<div class="movie-card" data-country="usa" data-genre="hanhdong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/TheDarkKnight.jpg" alt="The Dark Knight" />
+    <img src="img/TheDarkKnight.jpg" alt="The Dark Knight" data-code="darkknight" />
     <h3>The Dark Knight</h3>
     <button class="detail-btn" onclick="showDetails('darkknight')">Chi tiết</button>
   </div>
@@ -332,27 +367,27 @@
 
 <!--The Conjuring-->
 <div class="movie-card" data-country="usa
-" data-genre="kinhdi">
+" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/TheConjuring.jpg" alt="The Conjuring" />
+    <img src="img/TheConjuring.jpg" alt="The Conjuring" data-code="conjuring"/>
     <h3>The Conjuring</h3>
     <button class="detail-btn" onclick="showDetails('conjuring')">Chi tiết</button>
   </div>
 </div>
 <!--Hereditary-->
 <div class="movie-card" data-country="usa
-" data-genre="kinhdi">
+" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Hereditary.jpg" alt="Hereditary" />
+    <img src="img/Hereditary.jpg" alt="Hereditary" data-code="hereditary"/>
     <h3>Hereditary</h3>
     <button class="detail-btn" onclick="showDetails('hereditary')">Chi tiết</button>
   </div>
 </div>
 <!--Get Out-->
 <div class="movie-card" data-country="usa
-" data-genre="kinhdi">
+" data-genre="kinhdi phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/GetOut.jpg" alt="Get Out" />
+    <img src="img/GetOut.jpg" alt="Get Out" data-code="getout" />
     <h3>Get Out</h3>
     <button class="detail-btn" onclick="showDetails('getout')">Chi tiết</button>
   </div>
@@ -360,26 +395,28 @@
 
 <!--The Notebook-->
 <div class="movie-card" data-country="usa
-" data-genre="tinhcam">
+" data-genre="tinhcam phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/TheNotebook.jpg" alt="The Notebook" />
+    <img src="img/TheNotebook.jpg" alt="The Notebook" data-code="notebook" />
     <h3>The Notebook</h3>
     <button class="detail-btn" onclick="showDetails('notebook')">Chi tiết</button>
   </div>
 </div>
 <!--La La Land-->
 <div class="movie-card" data-country="usa
-" data-genre="tinhcam">
+" data-genre="tinhcam phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/LaLaLand.jpg" alt="La La Land" />
+    <img src="img/LaLaLand.jpg" alt="La La Land" data-code="lalaland" />
     <h3>La La Land</h3>
     <button class="detail-btn" onclick="showDetails('lalaland')">Chi tiết</button>
   </div>
 </div>
 <!---->
+
 <div class="movie-card" data-country="usa" data-genre="tinhcam">
+
   <div class="movie-image">
-    <img src="img/AStarIsBorn.jpg" alt="A Star Is Born" />
+    <img src="img/AStarIsBorn.jpg" alt="A Star Is Born" data-code="astar" />
     <h3>A Star Is Born</h3>
     <button class="detail-btn" onclick="showDetails('astar')">Chi tiết</button>
   </div>
@@ -387,25 +424,25 @@
 
 <!---->
 <div class="movie-card" data-country="usa
-" data-genre="chientranh">
+" data-genre="chientranh phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/SavingPrivateRyan.jpg" alt="Saving Private Ryan" />
+    <img src="img/SavingPrivateRyan.jpg" alt="Saving Private Ryan" data-code="ryan" />
     <h3>Saving Private Ryan</h3>
     <button class="detail-btn" onclick="showDetails('ryan')">Chi tiết</button>
   </div>
 </div>
 <!---->
-<div class="movie-card" data-country="england" data-genre="chientranh">
+<div class="movie-card" data-country="england" data-genre="chientranh phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/1917.jpg" alt="1917" />
+    <img src="img/1917.jpg" alt="1917" data-code="1917" />
     <h3>1917</h3>
     <button class="detail-btn" onclick="showDetails('1917')">Chi tiết</button>
   </div>
 </div>
 <!---->
-<div class="movie-card" data-country="england" data-genre="chientranh">
+<div class="movie-card" data-country="england" data-genre="chientranh phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Dunkirk.jpg" alt="Dunkirk" />
+    <img src="img/Dunkirk.jpg" alt="Dunkirk" data-code="dunkirk"/>
     <h3>Dunkirk</h3>
     <button class="detail-btn" onclick="showDetails('dunkirk')">Chi tiết</button>
   </div>
@@ -413,27 +450,27 @@
 
 <!--Blade Runner 2049-->
 <div class="movie-card" data-country="usa
-" data-genre="khoahocvientuong">
+" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/BladeRunner2049.jpg" alt="Blade Runner 2049" />
+    <img src="img/BladeRunner2049.jpg" alt="Blade Runner 2049" data-code="bladerunner"/>
     <h3>Blade Runner 2049</h3>
     <button class="detail-btn" onclick="showDetails('bladerunner')">Chi tiết</button>
   </div>
 </div>
 <!--Inception-->
 <div class="movie-card" data-country="usa
-" data-genre="khoahocvientuong">
+" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Inception.jpg" alt="Inception" />
+    <img src="img/Inception.jpg" alt="Inception" data-code="inception"/>
     <h3>Inception</h3>
     <button class="detail-btn" onclick="showDetails('inception')">Chi tiết</button>
   </div>
 </div>
 <!---->
 <div class="movie-card" data-country="usa
-" data-genre="khoahocvientuong">
+" data-genre="khoahocvientuong phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Interstellar.jpg" alt="Interstellar" />
+    <img src="img/Interstellar.jpg" alt="Interstellar" data-code="interstellar" />
     <h3>Interstellar</h3>
     <button class="detail-btn" onclick="showDetails('interstellar')">Chi tiết</button>
   </div>
@@ -441,18 +478,18 @@
 
 <!---->
 <div class="movie-card" data-country="usa
-" data-genre="haihuoc">
+" data-genre="haihuoc phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/GrandBudapestHotel.jpg" alt="The Grand Budapest Hotel" />
+    <img src="img/GrandBudapestHotel.jpg" alt="The Grand Budapest Hotel" data-code="budapest"/>
     <h3>The Grand Budapest Hotel</h3>
     <button class="detail-btn" onclick="showDetails('budapest')">Chi tiết</button>
   </div>
 </div>
 <!---->
 <div class="movie-card" data-country="usa
-" data-genre="haihuoc">
+" data-genre="haihuoc phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/Superbad.jpg" alt="Superbad" />
+    <img src="img/Superbad.jpg" alt="Superbad" data-code="superbad"/>
     <h3>Superbad</h3>
     <button class="detail-btn" onclick="showDetails('superbad')">Chi tiết</button>
   </div>
@@ -460,41 +497,41 @@
 <!---->
 
 <div class="movie-card" data-country="usa
-" data-genre="haihuoc">
+" data-genre="haihuoc phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/CrazyRichAsians.jpg" alt="Crazy Rich Asians" />
+    <img src="img/CrazyRichAsians.jpg" alt="Crazy Rich Asians" data-code="crazyrich" />
     <h3>Crazy Rich Asians</h3>
     <button class="detail-btn" onclick="showDetails('crazyrich')">Chi tiết</button>
   </div>
 </div>
 
 <!---->
-<div class="movie-card" data-country="Nhật Bản" data-genre="anime">
+<div class="movie-card" data-country="Nhật Bản" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/YourName.jpg" alt="Your Name" />
+    <img src="img/YourName.jpg" alt="Your Name" data-code="yourname" />
     <h3>Your Name</h3>
     <button class="detail-btn" onclick="showDetails('yourname')">Chi tiết</button>
   </div>
 </div>
 <!---->
-<div class="movie-card" data-country="Nhật Bản" data-genre="anime">
+<div class="movie-card" data-country="Nhật Bản" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/AttackOnTitan.jpg" alt="Attack on Titan" />
+    <img src="img/AttackOnTitan.jpg" alt="Attack on Titan" data-code="aot"/>
     <h3>Attack on Titan</h3>
-    <button class="detail-btn" onclick="showDetails('aot')">Chi tiết</button>
+    <button class="detail-btn" onclick="showDetails('aot')">Chi Tiết</button>
   </div>
 </div>
 <!--Spirited Away-->
-<div class="movie-card" data-country="Nhật Bản" data-genre="anime">
+<div class="movie-card" data-country="Nhật Bản" data-genre="anime phimle phimchieurap">
   <div class="movie-image">
-    <img src="img/SpiritedAway.jpg" alt="Spirited Away" />
+    <img src="img/SpiritedAway.jpg" alt="Spirited Away" data-code="spiritedaway"/>
     <h3>Spirited Away</h3>
     <button class="detail-btn" onclick="showDetails('spiritedaway')">Chi tiết</button>
   </div>
 </div>
   </main>
 
-  <!-- Trang chi tiết phim -->
+  <!-- Lê Tiến Đạt - Trang chi tiết phim -->
   <section id="movie-detail" class="hidden">
     <button class="back-btn" onclick="goBack()">⬅ Quay lại</button>
 
@@ -515,14 +552,15 @@
       </div>
     </div>
 
-    <div class="detail-summary">
-      <p id="detail-summary-text">
-        <!-- Tóm tắt nội dung phim sẽ hiển thị ở đây -->
-      </p>
-    </div>
+      <div class="detail-summary"> 
+      <p id="detail-summary-text"> 
+         
+         
+      </p> 
+    </div>  
   </section>
 
-  <!-- Trang đặt vé -->
+  <!-- Nguyễn Đức Cảnh - Trang đặt vé -->
   <section id="booking" class="hidden">
     <button class="back-detail-btn" onclick="goBackToDetail()">⬅ Quay lại chi tiết</button>
     <h2>Chọn suất chiếu & ghế</h2>
@@ -538,13 +576,13 @@
         <option>20:00</option>
       </select>
     </label>
-
+ <div class="screen">Màn Hình</div>
     <div id="seats"></div>
     <p>Ghế đã chọn: <span id="selected-seats"></span></p>
     <p>Tổng tiền: <span id="total-price">0</span> VND</p>
     <button class="pay-btn" onclick="proceedToPayment()">Thanh toán</button>
 
-    <!-- QR code sẽ hiện ở đây -->
+    <!-- Nguyễn Văn An - QR Thanh toán  -->
     <div id="qr-container" class="hidden">
       <h3>Quét mã QR để thanh toán</h3>
       <img src="img/qr.png" alt="QR Thanh toán" />
@@ -558,25 +596,24 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
-        <h3>CGV Việt Nam</h3>
+        <h3>Các thành viên nhóm </h3>
         <ul>
-          <li>Giới Thiệu</li>
-          <li>Tiện Ích Online</li>
-          <li>Thẻ Quà Tặng</li>
-          <li>Tuyển Dụng</li>
-          <li>Liên Hệ Quảng Cáo CGV</li>
-          <li>Dành cho đối tác</li>
+          <li>Trưởng nhóm: Lê Tiến Đạt </li>
+          <li>Thành viên: Nguyễn Đức Cảnh</li>
+          <li>Thành viên: Nguyễn Văn Phúc</li>
+          <li>Thành viên: Nguyễn Văn An</li>
+          <li>Thành viên: Đặng Việt Hoàn</li>
         </ul>
       </div>
 
       <div class="footer-section">
-        <h3>Điều khoản sử dụng</h3>
+        <h3>Phân công việc làm </h3>
         <ul>
-          <li>Điều Khoản Chung</li>
-          <li>Điều Khoản Giao Dịch</li>
-          <li>Chính Sách Thanh Toán</li>
-          <li>Chính Sách Bảo Mật</li>
-          <li>Câu Hỏi Thường Gặp</li>
+          <li>Lê Tiến Đạt : Thiết kế gieo diện chính và quản lý dự án </li>
+          <li>Nguyễn Đức Cảnh : Thiết kế trang chọn và đặt vé </li>
+          <li>Nguyễn Văn Phúc : Viết báo cáo và thuyết trình   </li>
+          <li>Nguyễn Văn An : Thiết kế trang thanh toán và in hóa đơn</li>
+          <li>Đặng Việt Hoàn : thiết kế trang đăng ký , đăng nhập </li>
         </ul>
       </div>
 
@@ -592,21 +629,19 @@
 
       <div class="footer-section">
         <h3>Chăm sóc khách hàng</h3>
-        <p>Hotline: 0339367021</p>
-        <p>Giờ làm việc: 8:00 - 20:00 (Tất cả các ngày, kể cả Lễ Tết)</p>
-        <p>Email: dat8813236@gmail.com</p>
+        <p>Hotline: 0365789071</p>
+        <p>Giờ làm việc: 8:00 - 22:00 (Tất cả các ngày, kể cả Lễ Tết)</p>
+        <p>Email: TCP8813236@gmail.com</p>
       </div>
     </div>
 
     <div class="footer-bottom">
       <p>
-        CÔNG TY TNHH CJ CGV VIỆT NAM<br />
-        Giấy chứng nhận đăng ký kinh doanh: 0303675393, đăng ký lần đầu ngày
-        31/7/2008 do Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh cấp.<br />
-        Địa chỉ: Lầu 2, 7/28 Đường Thành Thái, P.14, Q.10, TP. Hồ Chí Minh, Việt
-        Nam<br />
-        Hotline: 0339367021<br />
-        COPYRIGHT 2025 © CJ CGV VIETNAM CO., LTD. ALL RIGHTS RESERVED
+        CÔNG TY TNHH TCP  <br />
+        Giấy chứng nhận do Công Ty Rạp phim toàn quốc ngày 32/13/2076<br />
+        Địa chỉ: 2QPM+M38, Đ. Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam <br />
+        Hotline: 0357956712<br />
+        COPYRIGHT 2025 © CJ TCP VIETNAM CO., LTD. ALL RIGHTS RESERVED
       </p>
     </div>
   </footer>
