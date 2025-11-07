@@ -632,7 +632,6 @@ document.addEventListener('DOMContentLoaded', () => {
     container.classList.remove('active');
   });
 });
-
 function goHome() {
   // Ẩn các phần khác
   document.getElementById("movie-detail").classList.add("hidden");

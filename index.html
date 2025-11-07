@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <title>Web Đặt Vé Xem Phim Của Nhóm 2 </title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
+<!-- Đặng Việt Hoàn  -->
 <!-- Đặng Việt Hoàn  -->
 <!-- Popup Modal mới -->
 <div id="loginModal" class="modal">
@@ -15,52 +17,51 @@
         <!-- Nội dung form đăng nhập và đăng ký bạn đã có -->
         <div class="form-box login">
             <form action="#">
-                <h1>Login</h1>
+                <h1>Đăng Nhập</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required />
+                    <input type="text" placeholder="Tên đăng nhập" required />
                     <i class="fa-solid fa-circle-user"></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required />
+                    <input type="password" placeholder="Nhập mật khẩu" required />
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <div class="forgot-link"><a href="#">Forgot password?</a></div>
-                <button type="submit" class="btn">Login</button>
-                <p>Continue with <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a></p> 
+                <div class="forgot-link"><a href="#">Bạn đã quên mật khẩu?</a></div>
+                <button type="submit" class="btn">Đăng nhập</button>
+                <p>Continue with <a href=""><i class="fa-brands fa-google"></i></a></p> 
             </form>
         </div>
 
         <div class="form-box register">
             <form action="#">
-                <h1>Register</h1>
+                <h1>Đăng Kí</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required />
+                    <input type="text" placeholder="Tên đăng nhập" required />
                     <i class="fa-solid fa-circle-user"></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required />
+                    <input type="password" placeholder="Nhập mật khẩu" required />
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Repassword" required />
+                    <input type="password" placeholder="Nhập lại mật khẩu" required />
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <div class="forgot-link"><a href="#">Forgot password?</a></div>
-                <button type="submit" class="btn">Register</button>
-                <p>Or continue with <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a></p>
+                <button type="submit" class="btn">Đăng Kí</button>
+                <p>Hoặc tiếp tục với <a href=""><i class="fa-brands fa-google"></i></a></p>
             </form>
         </div>
 
         <div class="toggle-box">
           <div class="toggle-panel toggle-left">
-            <h1>Hello, Welcome</h1>
-            <p>Don't have an account</p>
-            <button type="button" class="btn register-btn">Register</button>
+            <h1>Hello,Welcome!</h1>
+            <p>Bạn chưa có tài khoản?</p>
+            <button type="button" class="btn register-btn">Đăng kí</button>
           </div>
           <div class="toggle-panel toggle-right">
             <h1>Welcome Back</h1>
-            <p>Already have an account?</p>
-            <button type="button" class="btn login-btn">Login</button>
+            <p>Bạn đã có tài khoản?</p>
+            <button type="button" class="btn login-btn">Đăng Nhập</button>
           </div>
         </div>
     </div>
@@ -581,16 +582,61 @@
     <p>Ghế đã chọn: <span id="selected-seats"></span></p>
     <p>Tổng tiền: <span id="total-price">0</span> VND</p>
     <button class="pay-btn" onclick="proceedToPayment()">Thanh toán</button>
-
-    <!-- Nguyễn Văn An - QR Thanh toán  -->
-    <div id="qr-container" class="hidden">
-      <h3>Quét mã QR để thanh toán</h3>
-      <img src="img/qr.png" alt="QR Thanh toán" />
+<div id="qr-container" class="hidden">
+     <!--- <h3>Quét mã QR để thanh toán</h3>
+      <img src="img/qr.png" alt="QR Thanh toán" style="width: 200px; height: 200px;"/> 
+      <button id="confirm-payment-btn" style="display: none; margin-top: 15px;">
+        đã thanh toán
+      </button>
     </div>
+    <div id="payment-success-msg" class="hidden" style="color: green; font-weight: bold; margin-top: 20px; text-align: center;">
+    Đã thanh toán thành công!
+</div>
+    <!-- Nguyễn Văn An - QR Thanh toán  -->
+</section>
+<section id="ticket-receipt-container" class="hidden">
+    <div class="ticket"> <div class="ticket-header">
+            <h2 id="ticket-cinema">CGV CINEMA</h2>
+            <h1 id="ticket-movie-title">AVATAR: DÒNG CHẢY CỦA NƯỚC</h1>
+        </div>
 
-    
-  </section>
+        <div class="ticket-separator-red"></div>
 
+        <div class="ticket-date-info">
+            <strong>Ngày</strong>
+            <span id="ticket-date"></span>
+        </div>
+
+        <div class="ticket-details-grid-3-col">
+            <div class="detail-item-seat">
+                <strong>Ghế</strong>
+                <span id="ticket-seats"></span>
+            </div>
+            <div class="detail-item">
+                <strong>Giờ</strong>
+                <span id="ticket-showtime"></span>
+            </div>
+            <div class="detail-item">
+                <strong>Giá tiền</strong>
+                <span id="ticket-price"></span> VND
+            </div>
+        </div>
+
+        <div class="ticket-separator-dashed"></div>
+        <div id="ticket-qrcode-wrapper">
+    <img id="payment-qr-image" src="img/qr.png" alt="QR Thanh toán" />
+    <p id="qr-instruction">Quét mã QR để thanh toán</p>
+    <div id="ticket-qrcode"></div>
+    <p id="ticket-code-wrapper">
+        <strong>Mã vé:</strong>
+        <span id="ticket-code"></span>
+    </p>
+</div>
+        <div class="ticket-footer">
+            <p>Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi!</p>
+        </div>
+
+    </div> </section>
   <script src="script.js"></script>
   <!-- Footer -->
   <footer class="footer">
